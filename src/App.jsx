@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import "./index.css"; // Optional, if you have styles
 
 import Banner from './assets/banner.jpg'
+import Booskiza from './assets/Gia-About.jfif'
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -43,7 +44,7 @@ function App() {
 	
 		<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
 			<Card
-				image=""
+				image={Booskiza}
 				title="Gia"
 				description="Gia is Hot!"
 			/>
