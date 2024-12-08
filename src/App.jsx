@@ -7,6 +7,8 @@ import Banner from './assets/banner.jpg'
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
+
+import Card from './components/Card';
 import Home from "./components/Home";
 import About from "./components/About";
 import Classes from "./components/Classes";
@@ -39,7 +41,13 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
         </Routes>
 	
-
+		<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+			<Card
+				image=""
+				title="Gia"
+				description="Gia is Hot!"
+			/>
+		</div>
    
        <p>whats going on here?</p>
       </main>
