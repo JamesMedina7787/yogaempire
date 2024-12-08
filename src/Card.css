@@ -6,7 +6,7 @@
   background-color: grey; /* Subtle contrast with the main body */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  max-width: 300px; /* Cards are narrower for grid alignment */
+  max-width: 900px; /* Cards are narrower for grid alignment */
   margin: 1em auto; /* Centers cards and maintains spacing */
 }
 
@@ -17,8 +17,8 @@
 
 .card-image-container {
   position: relative;
-  width: 100%;
-  height: 180px; /* Consistent image height */
+  width: 654px;
+  height: auto; /* Consistent image height */
   overflow: hidden;
 }
 

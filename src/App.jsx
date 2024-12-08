@@ -4,7 +4,11 @@ import ReactDOM from "react-dom";
 import "./index.css"; // Optional, if you have styles
 
 import Banner from './assets/banner.jpg'
-import Booskiza from './assets/Gia-About.jfif'
+import AboutPic from './assets/aboutPic.png'
+import HomePic from './assets/x2cr0w.png'
+import ContactPic from './assets/warr2.png'
+import LoginPic from './assets/x2plank.png'
+import BackX3 from './assets/backX3.png'
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -44,9 +48,37 @@ function App() {
 	
 		<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
 			<Card
-				image={Booskiza}
+				image={HomePic}
 				title="Gia"
 				description="Gia is Hot!"
+				destination="/"
+			/>
+		</div>
+		
+				<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+			<Card
+				image={AboutPic}
+				title="Gia"
+				description="Gia is Hot!"
+				destination="/about"
+			/>
+		</div>
+		
+				<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+			<Card
+				image={ContactPic}
+				title="Gia"
+				description="Gia is Hot!"
+				destination="/contact"
+			/>
+		</div>
+		
+				<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+			<Card
+				image={LoginPic}
+				title="Gia"
+				description="Gia is Hot!"
+				destination="/login"
 			/>
 		</div>
    
@@ -61,5 +93,3 @@ function App() {
 
 
 export default App;
-
-
