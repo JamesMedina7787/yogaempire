@@ -13,6 +13,7 @@
 .card:hover {
   transform: translateY(-5px); /* Subtle hover effect for interactivity */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+ color: pink;
 }
 
 .card-image-container {
@@ -31,7 +32,7 @@
 
 .card:hover .card-image {
   transform: scale(1.05); /* Gentle zoom effect on hover */
-  color:black;
+  color:pink;
 }
 
 .card-content {
@@ -43,8 +44,23 @@
 .card-title {
   font-size: 5rem;
   font-weight: 600;
-  color: #333;
+  
   margin-bottom: 0.75em;
+  transition: color 0.3s ease, color 0.3s ease;
+}
+
+.card-title: hover {
+  font-size: 5rem;
+  font-weight: 600;
+ 
+  margin-bottom: 0.75em;
+}
+
+.card-description {
+  font-size: 3rem;
+  
+  margin-bottom: 1.25em;
+  line-height: 1.6;
 }
 
 .card-description {
@@ -54,11 +70,18 @@
   line-height: 1.6;
 }
 
+.card-description :hover{
+  font-size: 9rem;
+ color:pink;
+  margin-bottom: 1.25em;
+  line-height: 1.6;
+}
+
 .card-button {
   display: inline-block;
   padding: 0.5em 1.5em;
   font-size: 1rem;
-  color: #fff;
+ 
   background-color: black; /* Matches the header/footer color */
   text-decoration: none;
   border-radius: 8px; /* Slight rounding for modern design */
@@ -69,5 +92,5 @@
 .card-button:hover {
   background-color: #BF2004; /* Slightly lighter for hover effect */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Elevated hover shadow */
-  color: black;
+  color: pink;
 }
