@@ -12,10 +12,10 @@ const Contact = () => {
 		
 		emailjs
 		   .sendForm(
-		           "Sbp_XPmOM_d87a8iK",
-			       "template_xfcc2lo",
-					formRef.current,
-				   "service_tgt098t"
+		        "service_tgt098t",      // Service ID
+    "template_xfcc2lo",     // Template ID
+    formRef.current,        // Form reference
+    "Sbp_XPmOM_d87a8iK"     // Public Key
 		   )
 		   .then(
 		   (result) =>{
@@ -39,15 +39,18 @@ const Contact = () => {
 	  
         <label>
           Name:
-          <input type="text" name="name" required />
+          <input type="text" name="from_name" required />
+
         </label>
         <label>
           Email:
-          <input type="email" name="email" required />
+         <input type="email" name="reply_to" required />
+
         </label>
         <label>
           Message:
           <textarea name="message" required></textarea>
+
         </label>
         <button type="submit">Send</button>
       </form>
