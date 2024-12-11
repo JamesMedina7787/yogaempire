@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useRef} from "react";
+import emailjs from "emailjs-com";
 import "../contact-form.css"
 import myImage from '../assets/x3crow.png'
+
 const Contact = () => {
+	
+//	const formRef = useRef();
+	
+//	const sendEmail = (e) => {
+		
+//	}
+	
+	
   return (
     <section>
       <h2>Contact Us</h2>
