@@ -5,18 +5,37 @@ import myImage from '../assets/x3crow.png'
 
 const Contact = () => {
 	
-//	const formRef = useRef();
+	const formRef = useRef();
 	
-//	const sendEmail = (e) => {
+	const sendEmail = (e) => {
+		e.preventDefault();
 		
-//	}
+		emailjs
+		   .sendForm(
+		           "Sbp_XPmOM_d87a8iK",
+			       "template_xfcc2lo",
+					formRef.current,
+				   "service_tgt098t"
+		   )
+		   .then(
+		   (result) =>{
+			   console.log("email delivered:", result.text);
+			   alert("message sent!");
+		   },
+		   (error) => {
+			   console.error("error sending email:", error.text);
+			   alert("something f'd up")
+		   }
+		   );
+		  e.target.reset();
+	};
 	
 	
   return (
     <section>
       <h2>Contact Us</h2>
 	  <img src={myImage} alt="Gia" />;
-      <form>
+      <form ref={formRef} onSubmit={sendEmail}>
 	  
         <label>
           Name:
