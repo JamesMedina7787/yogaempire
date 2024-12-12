@@ -4,11 +4,11 @@ import ReactDOM from "react-dom";
 import "./index.css"; // Optional, if you have styles
 
 import Banner from './assets/banner.jpg'
-import AboutPic from './assets/aboutPic.png'
+import AboutPic from './assets/warr.jpg'
 import HomePic from './assets/x2cr0w.png'
-import ContactPic from './assets/warr2.png'
+import ContactPic from './assets/split.jpg'
 import LoginPic from './assets/x2plank.png'
-import BackX3 from './assets/backX3.png'
+import BackX3 from './assets/stand.jpg'
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -25,7 +25,6 @@ function App() {
   return (
     <Router>
       <header className="header">
-	  <img src={Banner} alt="Yoga Empire Banner" style={{ width: '100%', height: 'auto' }}/>
 
 	  	<div className="banner">
    
