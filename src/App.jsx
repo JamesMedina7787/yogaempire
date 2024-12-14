@@ -9,6 +9,7 @@ import HomePic from './assets/x2cr0w.png'
 import ContactPic from './assets/split.jpg'
 import LoginPic from './assets/x2plank.png'
 import BackX3 from './assets/stand.jpg'
+import Bac2 from './assets/x3Crow.png'
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -44,7 +45,27 @@ function App() {
           <Route path="/About" element={<About />} />
           <Route path="/Contact" element={<Contact />} />
         </Routes>
-	
+	 <div>
+      {/* Normal Section */}
+      <section className="section">
+        <h1 className="grand-text"></h1>
+        <p></p>
+      </section>
+
+      {/* Parallax Section */}
+      <div className="parallax">
+        <div className="parallax-content">
+          <h2>Gia : Experienced Yoga Instructor</h2>
+          <p>Empire Yoga</p>
+        </div>
+      </div>
+
+      {/* Another Normal Section */}
+      <section className="section">
+        <h1 className="header-content">Gia Rocks</h1>
+       
+      </section>
+    </div>
 		<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
 			<Card
 				image={HomePic}
@@ -53,19 +74,19 @@ function App() {
 				destination="/"
 			/>
 		</div>
-		
+		 
 				<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
 			<Card
-				image={AboutPic}
+				image={LoginPic}
 				title="Gia"
 				description="Gia is Hot!"
 				destination="/about"
 			/>
 		</div>
-		
+		 
 				<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
 			<Card
-				image={ContactPic}
+				image={Bac2}
 				title="Gia"
 				description="Gia is Hot!"
 				destination="/contact"
@@ -80,7 +101,7 @@ function App() {
 				destination="/login"
 			/>
 		</div>
-   
+    
        <p>whats going on here?</p>
       </main>
       <footer className="footer">
