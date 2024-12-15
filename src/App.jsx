@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import "./index.css"; // Optional, if you have styles
 
 import Banner from './assets/banner.jpg'
-import AboutPic from './assets/warr.jpg'
+import AboutPic from './assets/Gia-About.jfif'
 import HomePic from './assets/x2cr0w.png'
 import ContactPic from './assets/split.jpg'
 import LoginPic from './assets/x2plank.png'
