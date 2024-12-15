@@ -1,7 +1,10 @@
-import React from "react";
+
 import ReactDOM from "react-dom";
+import React, { useState } from "react";
 
 import "./index.css"; // Optional, if you have styles
+
+import Navbar from "./components/navbar"; // Ensure this import exists at the top
 
 import Banner from './assets/banner.jpg'
 import AboutPic from './assets/Gia-About.jfif'
@@ -19,6 +22,9 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Classes from "./components/Classes";
 import Contact from "./components/Contact";
+import James from "./components/James";
+import Gia from "./components/Gia";
+import Business from "./components/Business";
 import "./App.css"; // If you have a CSS file for styling
 
 
@@ -31,18 +37,17 @@ function App() {
    
 </div>
        
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/Classes">Classes</Link>
-          <Link to="/About">About</Link>
-          <Link to="/Contact">Contact</Link>
-        </nav>
+
       </header>
       <main>
+	  <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Classes" element={<Classes />} />
           <Route path="/About" element={<About />} />
+          <Route path="/about/james" element={<James />} />
+          <Route path="/about/gia" element={<Gia />} />
+          <Route path="/about/business" element={<Business />} />
           <Route path="/Contact" element={<Contact />} />
         </Routes>
 	 <div>
