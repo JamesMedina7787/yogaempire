@@ -40,8 +40,8 @@ function App() {
 
       </header>
       <main>
-	  <Navbar />
-        <Routes>
+	  <Navbar className="navbar"/>
+        <Routes className="nav-list">
           <Route path="/" element={<Home />} />
           <Route path="/Classes" element={<Classes />} />
           <Route path="/About" element={<About />} />
