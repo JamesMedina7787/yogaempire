@@ -1,0 +1,45 @@
+.about-container{
+	max-width: 1200px;
+	margin:0 auto;
+	padding: 2rem;
+	color: #333;
+	font-family: "Ariel", sans-serif;
+}
+
+.about-hero{
+	text-align:center;
+	margin-bottom:2rem;
+}
+.about-hero p {
+	font-size:2.5rem;
+	font-weight:bold;
+	color:#BF2004;
+	margin-bottom:1rem;
+}
+.about-hero p {
+	font-size:1.2rem;
+	line-height:1.6;
+	margin-bottom:1rem;
+}
+.about-image img{
+	max-width:100%;
+	border-radius:8px;
+	box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+.about-values{
+	margin-top:2rem;
+}
+.about-values ul{
+	list-style:none;
+	padding: 0;
+}
+.about-values li{
+	font-size:1.1rem;
+	margin-bottom: 0.5rem;
+	line-height:1.5;
+}
+.about-values strong{
+	color: #BF2004;
+}
+
+

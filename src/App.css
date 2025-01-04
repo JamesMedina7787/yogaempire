@@ -1,0 +1,259 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Header */
+.header {
+  position: relative;
+  width: 100%;
+  height: 700px; /* Adjust the height as needed */
+  background: url('./assets/banner.jpg') no-repeat center center; /* Replace with your image path */
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem; /* Adds padding to the sides */
+  color: white;
+  z-index:10;
+}
+
+.header nav {
+ flex:1;
+ display:flex;
+ justify-content:center;
+ gap:2rem;
+ margin-bottom:40%;
+
+}
+
+/* Parallax Section */
+.parallax {
+  position: relative; /* Ensures content layers above */
+  background-image: url('./assets/warr.jpg'); /* Replace with your image */
+  background-attachment: fixed; /* Creates the parallax effect */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; /* Ensures the image covers the section */
+  height: 100vh; /* Full viewport height */
+  z-index: 1;
+}
+
+.parallax-content {
+  position: relative;
+  z-index: 2; /* Ensures content is above the background */
+  padding: 2rem;
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5); /* Optional: Adds transparency for better readability */
+}
+
+
+
+.parallax-content h1 {
+  font-size: 3rem; /* Larger heading */
+  font-weight: bold;
+  margin: 0.5rem 0;
+  letter-spacing: 1.5px; /* Slight spacing for elegance */
+  background: linear-gradient(45deg, #FF7E79, #FFD700); /* Gradient text */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Make gradient visible */
+}
+
+.parallax-content p {
+  font-size: 1.5rem; /* Smaller subheading */
+  margin: 0.5rem 0;
+  color: #f0f0f0; /* Slightly lighter gray for subheading */
+  opacity: 0.9; /* Subtle opacity */
+}
+
+
+/* Normal Section */
+.section {
+  padding: 4rem 2rem;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+
+.instagram-feed {
+  padding: 2rem;
+  text-align: center;
+}
+
+.instagram-feed .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.instagram-feed .post {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #f9f9f9;
+}
+
+.instagram-feed .post img, .instagram-feed .post video {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.instagram-feed .post p {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.instagram-feed .post a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.instagram-feed .post a:hover {
+  text-decoration: underline;
+}
+
+
+.header nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  z-index:30
+}
+
+.header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Navigation Menu */
+.navbar {
+  background: #333;
+  padding: 1rem 2rem;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.nav-list li {
+  position: relative;
+}
+
+.nav-list a, .nav-list span {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.nav-list a:hover, .nav-list span:hover {
+  color: #FFD700; /* Golden color for hover effect */
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #222;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 50;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.dropdown-menu li {
+  padding: 0.8rem 1.5rem;
+  border-bottom: 1px solid #444;
+  transition: background 0.3s ease;
+}
+
+.dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu a {
+  color: #f0f0f0;
+}
+
+.dropdown-menu li:hover {
+  background: #444;
+}
+
+
+/* Main Content */
+.main {
+  padding: 2em;
+  text-align: center;
+}
+
+.main h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.main p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Footer */
+.footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1em;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .header {
+    height:300px; /* Reduce banner height on smaller screens */
+  }
+
+  .header nav a {
+    font-size: 1rem;
+  }
+  .parallax {
+  display:none;
+}
+
+.parallax-content {
+  display:block;
+}
+}
+
+@media (max-width: 480px) {
+  .header {
+    height: 200px;
+    flex-direction: column; /* Stack the nav and logo vertically */
+    text-align: center;
+  }
+
+  .header nav a {
+    font-size: 0.9rem;
+  }
+}

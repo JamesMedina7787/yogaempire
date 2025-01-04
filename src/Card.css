@@ -1,0 +1,98 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffcccc, #ffe6e6); /* Light gradient background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* Cards stretch across the screen */
+  margin: 1rem 0; /* Adds spacing between cards */
+  padding: 5.5rem;
+}
+
+.card:hover {
+  transform: translateY(-8px); /* Hover effect to lift the card slightly */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.card:hover .card-description {
+  color: #ff69b4; /* Hot pink text for contrast */
+  transition: color 0.3s ease; /* Smooth transition */
+}
+
+.card-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Maintains consistent proportions */
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the container */
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-image {
+  transform: scale(1.08); /* Slight zoom effect on hover */
+}
+
+.card-content {
+  padding: 1rem;
+  text-align: center;
+  background: #fff; /* Neutral background for content */
+  border-radius: 0 0 12px 12px; /* Matches rounded card corners */
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #bf2004; /* Red for title */
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+.card-title:hover {
+  color: #ff8080; /* Light red on hover */
+}
+
+.card-description {
+  font-size: 1rem;
+  color: #555; /* Default text color */
+  margin-bottom: 1.25em;
+  line-height: 1.6;
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.card-button {
+  display: inline-block;
+  padding: 0.5em 1.5em;
+  font-size: 1rem;
+  background-color: #bf2004; /* Button background */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px; /* Rounded button edges */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-button:hover {
+  background-color: #ff8080; /* Light red on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Elevated shadow on hover */
+  color: #333;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .card {
+    width: 95%; /* Slight padding for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%; /* Full-width cards for mobile */
+  }
+}
