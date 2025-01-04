@@ -1,5 +1,5 @@
 import React from "react";
-import "../about.css";
+import "../About.css";
 import Gia from '../assets/Gia-About.jfif'
 const About = () => {
   return (
