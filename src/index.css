@@ -1,10 +1,15 @@
+
+
+
+
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  
   background-color: #242424;
 
   font-synthesis: none;
@@ -13,46 +18,346 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  width:100%;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+/* Universal Text and Heading Styles */
+h1, h2, h3 {
   font-family: inherit;
-  background-color: #1a1a1a;
+  color: #f03939; /* Accent color */
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 1.5rem 0;
+  color: #333;
+}
+
+/* Welcome Section */
+.welcome-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #f9f9f9; /* Light background */
+  color: #333;
+}
+
+.welcome-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.welcome-section .fade-in {
+  display: inline-block;
+  animation: fadeIn 2s ease-in forwards;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.welcome-section .grow-from-earth {
+  display: inline-block;
+  color: #f03939; /* Accent color */
+  animation: growFromEarth 3s ease-in forwards;
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+/* About Container */
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+
+.booking-section {
+  padding: 3rem;
+  text-align: center;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.booking-section h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #f03939;
+}
+
+.booking-section p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+#booking-form {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+#booking-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+#booking-form input,
+#booking-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+#booking-form button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #f03939;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.3s ease-in-out;
 }
-button:hover {
-  border-color: #646cff;
+
+#booking-form button:hover {
+  background-color: #f03939;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.about-hero {
+  grid-column: span 2;
+  text-align: left;
+}
+
+.about-hero h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #FF7E79;
+  margin-bottom: 1rem;
+}
+
+.about-hero p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.about-values {
+  grid-column: span 2;
+  margin-top: 2rem;
+}
+
+.about-values h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #FFD700;
+  margin-bottom: 1rem;
+}
+
+.about-values ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-values li {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.about-values strong {
+  color: #FF7E79;
+}
+
+/* Base styles for animation */
+.ufoLoad {
+  opacity: 0;
+  position: relative;
+  animation: ufoLoad 1s ease-out forwards;
+}
+
+.fade-in {
+  display: inline-block;
+  opacity: 0;
+  animation: fadeIn 2s ease-in forwards;
+  animation-delay: .33s; /* Add a slight delay if needed */
+}
+
+svg {
+  stroke: #ff7e79; /* Beautiful pink for the lotus */
+  transition: transform 0.3s ease-in-out;
+}
+
+svg:hover {
+  transform: scale(1.2); /* Slight zoom effect on hover */
+  stroke: #ffd700; /* Golden color on hover */
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Grow-from-earth animation for "Yoga Empire" */
+/* Welcome Section Styles */
+.welcome-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #f9f9f9; /* Light background */
+  color: #333; /* Dark text for contrast */
+}
+
+.welcome-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.welcome-section .fade-in {
+  display: inline-block;
+  animation: fadeIn 2s ease-in forwards;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.welcome-section .grow-from-earth {
+  display: inline-block;
+  color: #FF7E79; /* Accent color */
+  animation: growFromEarth 3s ease-in forwards;
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+.welcome-section p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 1.5rem 0;
+}
+
+/* Keyframes for Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes growFromEarth {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: bottom center;
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.1); /* Slight overshoot */
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+/* Animation keyframes */
+@keyframes ufoLoad {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+/* Fly in from different directions */
+.from-top {
+  animation-name: ufoLoadTop;
+}
+
+.from-left {
+  animation-name: ufoLoadLeft;
+}
+
+.from-right {
+  animation-name: ufoLoadRight;
+}
+
+.from-bottom {
+  animation-name: ufoLoadBottom;
+}
+
+@keyframes ufoLoadTop {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes ufoLoadLeft {
+  0% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes ufoLoadRight {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes ufoLoadBottom {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @media (prefers-color-scheme: light) {

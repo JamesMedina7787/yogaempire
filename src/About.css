@@ -42,4 +42,56 @@
 	color: #BF2004;
 }
 
+.animated-heart {
+	display: inline-block;
+	color: white;
+	animation:fadeToRed 4s forwards ;
+  }
+  
+  @keyframes fadeToRed {
+	0% {
+	  color: white;
+	}
+	100% {
+	  color: red;
+	}
+  }
+  .animated-sup {
+	display: inline-block;
+	font-size: 2rem;
+	font-weight: bold;
+	color: black;
+	position: relative;
+	transition: all 0.3s ease-in-out;
+  }
+  
+  .animated-sup:hover {
+	color: #000;
+	text-shadow: 
+	  0 0 8px #ff0000,   /* Root chakra (red) */
+	  0 0 16px #ff8000,  /* Sacral chakra (orange) */
+	  0 0 24px #ffff00,  /* Solar plexus chakra (yellow) */
+	  0 0 32px #008000,  /* Heart chakra (green) */
+	  0 0 40px #0000ff,  /* Throat chakra (blue) */
+	  0 0 48px #4b0082,  /* Third-eye chakra (indigo) */
+	  0 0 56px #ee82ee;  /* Crown chakra (violet) */
+  }
+  
+  @keyframes typing {
+	from {
+	  width: 0;
+	}
+	to {
+	  width: 100%;
+	}
+  }
+  
+  @keyframes blink {
+	from, to {
+	  border-color: transparent;
+	}
+	50% {
+	  border-color: black;
+	}
+  }
 

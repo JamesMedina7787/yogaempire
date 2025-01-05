@@ -8,17 +8,29 @@ const Classes = () => {
   ];
 
   return (
-    <section>
-      <h2>Our Classes</h2>
-      <ul>
-        {classes.map((yogaClass, index) => (
-          <li key={index}>
-            <h3>{yogaClass.name}</h3>
-            <p>{yogaClass.time}</p>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <section class="booking-section">
+  <h1>Book a Private Session</h1>
+  <p>
+    Choose a date and let us know your preferred time or any special requests. We’ll get back to you to confirm your session.
+  </p>
+  
+  <form id="booking-form" action="your-server-endpoint" method="POST">
+    <label for="session-date">Select a Date:</label>
+    <input type="date" id="session-date" name="session-date" required />
+    
+    <label for="suggestion">Your Request/Preference:</label>
+    <textarea 
+      id="suggestion" 
+      name="suggestion" 
+      rows="4" 
+      placeholder="Let us know your preferred time or any specific needs for your session."
+      required
+    ></textarea>
+    
+   
+  </form>
+</section>
+
   );
 };
 

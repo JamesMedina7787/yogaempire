@@ -217,6 +217,56 @@
   padding: 1em;
 }
 
+/* Base styles for the heading */
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+/* Fade-in animation for "Welcome to" */
+.fade-in {
+  display: inline-block;
+  opacity: 0;
+  animation: fadeIn 2s ease-in forwards;
+  animation-delay: 1s;
+}
+
+@keyframes fadeInFocus {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Grow-from-earth animation for "Yoga Empire" */
+.grow-from-earth {
+  display: inline-block;
+  opacity: 1;
+  transform: scaleY();
+  transform-origin: bottom center;
+  animation: growFromEarth 3s ease-in forwards;
+  animation-delay: 4s; /* Delays the animation to follow "Welcome to" */
+}
+
+@keyframes growFromEarth {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.1); /* Slight overshoot for a natural growth effect */
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+
 @keyframes fadeIn {
   from {
     opacity: 0;
