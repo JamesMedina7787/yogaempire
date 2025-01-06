@@ -1,0 +1,34 @@
+{
+  "name": "yogaempire",
+  "version": "1.0.0",
+  "description": "Yoga 500-hour certified instructors of Yoga Empire",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd backend && node server.js",
+    "start:frontend": "cd yogaempire-main && npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/JamesMedina7787/yogaempire.git"
+  },
+  "keywords": [
+    "yoga",
+    "ny",
+    "gia",
+    "james",
+    "experienced",
+    "virtual",
+    "class"
+  ],
+  "author": "jwm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamesMedina7787/yogaempire/issues"
+  },
+  "homepage": "https://github.com/JamesMedina7787/yogaempire#readme",
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

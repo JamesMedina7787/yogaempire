@@ -30,6 +30,40 @@ p {
   margin: 1.5rem 0;
   color: #333;
 }
+.digital-class-section {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.digital-class-section label {
+  display: block;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.digital-class-section input {
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.digital-class-section button {
+  padding: 0.75rem 1.5rem;
+  background-color: #FF7E79;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.digital-class-section button:hover {
+  background-color: #FF5050;
+}
 
 /* Welcome Section */
 .welcome-section {
