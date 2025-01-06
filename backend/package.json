@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "yoga empire ny asana yogaClass fitness",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/JamesMedina7787/yogaempire.git"
+  },
+  "keywords": [
+    "yoga",
+    "empire",
+    "ny",
+    "asana",
+    "class",
+    "virtual",
+    "handstand"
+  ],
+  "author": "jwm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamesMedina7787/yogaempire/issues"
+  },
+  "homepage": "https://github.com/JamesMedina7787/yogaempire#readme"
+}
