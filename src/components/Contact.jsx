@@ -32,29 +32,26 @@ const Contact = () => {
 	
 	
   return (
-    <section>
-      <h2>Contact Us</h2>
-	  <img src={myImage} alt="Gia" />;
-      <form ref={formRef} onSubmit={sendEmail}>
-	  
-        <label>
-          Name:
-          <input type="text" name="from_name" required />
+<section className="contact-section">
+  <h2>Contact Us</h2>
+  <img src={myImage} alt="Gia" className="contact-image" />
+  <form ref={formRef} onSubmit={sendEmail} className="contact-form">
+    <label>
+      Name:
+      <input type="text" name="from_name" required />
+    </label>
+    <label>
+      Email:
+      <input type="email" name="reply_to" required />
+    </label>
+    <label>
+      Message:
+      <textarea name="message" required></textarea>
+    </label>
+    <button type="submit" className="submit-button">Send</button>
+  </form>
+</section>
 
-        </label>
-        <label>
-          Email:
-         <input type="email" name="reply_to" required />
-
-        </label>
-        <label>
-          Message:
-          <textarea name="message" required></textarea>
-
-        </label>
-        <button type="submit">Send</button>
-      </form>
-    </section>
   );
 };
 
