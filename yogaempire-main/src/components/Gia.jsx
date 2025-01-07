@@ -19,7 +19,15 @@ const Gia = () => {
     <section class="welcome-section">
       <div className="about-container">
         
-        <p><h1>Gia</h1>
+        
+        <p>
+        I am a 500-hour Yoga Alliance-certified instructor passionate about creating inclusive and engaging yoga experiences. My classes are designed to support practitioners of all levels, from beginners to advanced yogis. Specializing in Vinyasa flow, I focus on intuitive teaching—reading the energy of the room and adapting each session to meet the unique needs of my students.
+
+Whether I’m incorporating creative sequences, exploring new poses, or adjusting the pace, my goal is to make every class a rewarding experience. To me, yoga is a collaborative journey that fosters connection, growth, and joy. I encourage my students to be active participants in their practice, whether by sharing their goals, asking questions, or exploring deeper aspects of yoga together.
+
+Let’s work together to create a joyful and meaningful experience on the mat. I’m excited to join you on your yoga journey!
+</p>
+<p style={{display:'none'}} ><h1>Gia</h1>
           My name is Gia, and I’m a 500-hour Yoga Alliance-certified instructor with a
           passion for creating inclusive and engaging yoga experiences. I specialize in
           open-level Vinyasa flow classes, designed to support yogis of all levels, from
@@ -40,7 +48,6 @@ const Gia = () => {
           and empowering. I’m excited to connect with you and be a part of your yoga
           journey!
         </p>
- 
       </div>
     </section>
 

@@ -28,7 +28,12 @@
     "url": "https://github.com/JamesMedina7787/yogaempire/issues"
   },
   "homepage": "https://github.com/JamesMedina7787/yogaempire#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
   "dependencies": {
-    "concurrently": "^8.2.0"
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
   }
 }

@@ -6,38 +6,27 @@ const About = () => {
 	<section className="about-container">
 	{/* Hero Section */}
 	<div className="about-hero">
-	  <h2>About Yoga Empire</h2>
-	  <p>
-		At Yoga Empire, we believe in the transformative power of yoga. Our mission is to
-		inspire and empower individuals of all levels to connect with their bodies, minds,
-		and souls through a dynamic and inclusive yoga practice.
-	  </p>
-	  <p>
-		Founded by Gia, a 500-hour certified Yoga Instructor with a passion for movement
-		and mindfulness, Yoga Empire serves as a space to rejuvenate, grow, and challenge
-		yourself. Whether you’re a beginner exploring yoga for the first time or an advanced
-		yogi deepening your practice, we provide a supportive environment to help you thrive.
-	  </p>
-	  <p>
-		I've always been fascinated with the art of body and movement that's motivated me,
-		in one shape or form, to be active my entire life. When I took my first yoga class,
-		I realized an immediate connection. After training 5 to 6 days a week in many styles
-		of yoga (Hatha, Ashtanga, etc.), my love for yoga was solidified when I decided I
-		wanted to teach. Educated by the best yoga teachers in NYC, I am certified in Vinyasa
-		Flow Yoga, which means the flow of postures linked by the breath. 
-	  </p>
-	  <p>
-		I have worked with yogis of all levels throughout NYC, Westchester County, Long Island,
-		and Upstate NY. I have an immense appreciation for yoga, and sharing it is my passion. 
-		So whether you want to begin or continue, elevate your fitness level, both mind and body, 
-		by incorporating yoga in your daily routine. It's always an amazing time—come flow with Gia, 
-		and we'll journey together.
-	  </p>
-	  <p>
-		Join us for a variety of yoga classes, workshops, and personalized training sessions 
-		that elevate your fitness journey. Together, we'll embark on a path of self-discovery, 
-		balance, and harmony. It’s more than a practice—it’s a lifestyle.
-	  </p>
+	<p style={{display:'none'}} ><h1>Gia</h1>
+          My name is Gia, and I’m a 500-hour Yoga Alliance-certified instructor with a
+          passion for creating inclusive and engaging yoga experiences. I specialize in
+          open-level Vinyasa flow classes, designed to support yogis of all levels, from
+          beginners to advanced practitioners.
+      
+          My teaching style is intuitive, meaning no two classes are ever the same. I
+          love to read the energy of the room and adapt each session to meet the needs
+          of my students. Whether it’s incorporating creative sequences, exploring new
+          poses, or adjusting the pace, I aim to make every class a unique and rewarding
+          experience.
+       
+          I also believe yoga is a collaborative journey. I encourage my students to be
+          involved, whether that means asking questions, sharing their goals, or working
+          together to explore their practice more deeply. My classes are not just about
+          movement—they’re about connection, growth, and having fun along the way.
+    
+          Let’s work together to create a yoga practice that feels authentic, joyful,
+          and empowering. I’m excited to connect with you and be a part of your yoga
+          journey!
+        </p>
 	</div>
   
 	{/* About Image */}

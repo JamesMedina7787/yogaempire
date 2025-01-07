@@ -26,6 +26,7 @@ import James from "./components/James";
 import Gia from "./components/Gia";
 import Business from "./components/Business";
 import Zoom from "./components/zoom";
+import Workshops from "./components/workshops";
 import "./App.css"; // If you have a CSS file for styling
 
 
@@ -51,6 +52,7 @@ function App() {
           <Route path="/about/business" element={<Business />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/zoom" element={<Zoom />} />
+          <Route path="/workshops" element={<Workshops />} />
         </Routes>
 	 <div>
       {/* Normal Section */}
@@ -78,7 +80,7 @@ function App() {
 				image={HomePic}
 				title="Gia"
 				description="Gia is Hot!"
-				destination="/"
+				destination="/About"
 			/>
 		</div>
 		 
@@ -96,7 +98,7 @@ function App() {
 				image={Bac2}
 				title="Gia"
 				description="Gia is Hot!"
-				destination="/contact"
+				destination="/workshops"
 			/>
 		</div>
 		
@@ -105,7 +107,7 @@ function App() {
 				image={LoginPic}
 				title="Gia"
 				description="Gia is Hot!"
-				destination="/zoom"
+				destination="/workshops"
 			/>
 		</div>
     
