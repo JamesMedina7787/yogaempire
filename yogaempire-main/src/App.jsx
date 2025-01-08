@@ -27,6 +27,8 @@ import Gia from "./components/Gia";
 import Business from "./components/Business";
 import Zoom from "./components/zoom";
 import Workshops from "./components/workshops";
+import Login from "./components/login";
+import Register from "./components/Register";
 import "./App.css"; // If you have a CSS file for styling
 
 
@@ -53,6 +55,8 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/zoom" element={<Zoom />} />
           <Route path="/workshops" element={<Workshops />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
         </Routes>
 	 <div>
       {/* Normal Section */}
@@ -102,12 +106,20 @@ function App() {
 			/>
 		</div>
 		
-				<div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
 			<Card
 				image={LoginPic}
 				title="Gia"
 				description="Gia is Hot!"
-				destination="/workshops"
+				destination="/login"
+			/>
+		</div>
+    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+			<Card
+				image={LoginPic}
+				title="Gia"
+				description="Gia is Hot!"
+				destination="/Register"
 			/>
 		</div>
     

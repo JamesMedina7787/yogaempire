@@ -6,6 +6,11 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+// Import route files
+const authRoutes = require("./routes/auth"); 
+const classRoutes = require("./routes/classes");
+const workshopRoutes = require("./routes/workshops"); // Add workshops route
+
 // Create Express App
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -51,91 +56,24 @@ const createZoomMeeting = async (req, res) => {
     res.status(500).json({ error: "Failed to create Zoom meeting" });
   }
 };
-app.post("/create-meeting", createZoomMeeting);
+app.post("/api/create-meeting", createZoomMeeting); // Prefix this with "/api"
 
 // MongoDB Connection
+
+
 mongoose
-  .connect("mongodb://localhost:27017/workshops", { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect("mongodb://127.0.0.1:27017/workshops", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Mongoose Schema and Model
-const StudentSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  notes: String,
-});
-
-const WorkshopSchema = new mongoose.Schema({
-  students: [StudentSchema],
-  date: String,
-  time: String,
-  capacity: { type: Number, default: 20 },
-  minimumStudents: { type: Number, default: 7 },
-});
-
-const Workshop = mongoose.model("Workshop", WorkshopSchema);
-
-// API Endpoints
-app.post("/api/workshops", async (req, res) => {
-  try {
-    const workshop = new Workshop(req.body);
-    await workshop.save();
-    res.status(201).json(workshop);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
-app.get("/api/workshops", async (req, res) => {
-  try {
-    const workshop = await Workshop.findOne();
-    res.json(workshop);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.post("/api/workshops/students", async (req, res) => {
-  try {
-    const { name, email, notes } = req.body;
-    const workshop = await Workshop.findOne();
-
-    if (!workshop) return res.status(404).json({ error: "Workshop not found" });
-
-    if (workshop.students.length >= workshop.capacity) {
-      return res.status(400).json({ error: "The class is full!" });
-    }
-
-    workshop.students.push({ name, email, notes });
-    await workshop.save();
-
-    res.status(201).json(workshop);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.post("/api/workshops/finalize", async (req, res) => {
-  try {
-    const { date, time } = req.body;
-    const workshop = await Workshop.findOne();
-
-    if (!workshop) return res.status(404).json({ error: "Workshop not found" });
-
-    if (workshop.students.length < workshop.minimumStudents) {
-      return res.status(400).json({ error: "Not enough students to finalize the class" });
-    }
-
-    workshop.date = date;
-    workshop.time = time;
-    await workshop.save();
-
-    res.status(200).json(workshop);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+// Use routes
+app.use("/api", authRoutes); // All authentication routes are prefixed with "/auth"
+app.use("/workshops", workshopRoutes); // All workshop-related routes are prefixed with "/workshops"
+app.use("/classes", classRoutes); // All class-related routes are prefixed with "/classes"
 
 // Start the server
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const HUH = process.env.PORTT||3001;
+app.listen(HUH, () => console.log(`Server running on port ${HUH}`));
