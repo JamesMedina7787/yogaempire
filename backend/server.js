@@ -1,79 +1,53 @@
-// Import required modules
-const express = require("express"); // Make sure to import express
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const axios = require("axios");
-const mongoose = require("mongoose");
-require("dotenv").config();
+require('dotenv').config();
+const express = require('express');
+const axios = require('axios'); // Ensure axios is installed with `npm install axios`
+const { Pool } = require('pg');
+const bcrypt = require('bcryptjs');
 
-// Import route files
-const authRoutes = require("./routes/auth"); 
-const classRoutes = require("./routes/classes");
-const workshopRoutes = require("./routes/workshops"); // Add workshops route
-
-// Create Express App
+// Initialize Express app
 const app = express();
-const PORT = process.env.PORT || 3001;
+
+// PostgreSQL connection
+const pool = new Pool({
+  user: process.env.DB_USER || 'root',
+  host: process.env.DB_HOST || 'localhost',
+  database: process.env.DB_NAME || 'workshops',
+  password: process.env.DB_PASSWORD || 'CupStack54!',
+  port: process.env.DB_PORT || 5432,
+});
+
+pool.connect()
+  .then(() => console.log('PostgreSQL connected'))
+  .catch((err) => console.error('PostgreSQL connection error:', err));
 
 // Middleware
-app.use(bodyParser.json());
-app.use(cors());
+app.use(express.json());
 
-// Zoom API credentials
-const ZOOM_API_KEY = process.env.ZOOM_API_KEY;
-const ZOOM_API_SECRET = process.env.ZOOM_API_SECRET;
-
-// Zoom Meeting API
-const createZoomMeeting = async (req, res) => {
+// Zoom API example route
+app.post('/api/create-meeting', async (req, res) => {
   try {
-    const meetingConfig = {
-      topic: req.body.topic,
-      type: 2, // Scheduled meeting
-      start_time: req.body.start_time, // e.g., "2023-12-31T20:00:00Z"
-      duration: req.body.duration, // in minutes
-      timezone: "UTC",
-      settings: {
-        host_video: true,
-        participant_video: true,
-        join_before_host: false,
+    const response = await axios.post('https://api.zoom.us/v2/users/me/meetings', req.body, {
+      headers: {
+        Authorization: `Bearer ${process.env.ZOOM_API_KEY}:${process.env.ZOOM_API_SECRET}`,
+        'Content-Type': 'application/json',
       },
-    };
-
-    const response = await axios.post(
-      "https://api.zoom.us/v2/users/me/meetings",
-      meetingConfig,
-      {
-        headers: {
-          Authorization: `Bearer ${ZOOM_API_KEY}:${ZOOM_API_SECRET}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
+    });
     res.status(200).json(response.data);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to create Zoom meeting" });
+    res.status(500).json({ error: 'Failed to create Zoom meeting' });
   }
-};
-app.post("/api/create-meeting", createZoomMeeting); // Prefix this with "/api"
+});
 
-// MongoDB Connection
+// Define routes (replace with your actual route files or handlers)
+const authRoutes = require('./routes/auth'); // Replace with actual auth route file
+const workshopRoutes = require('./routes/workshops'); // Replace with actual workshop route file
+const classRoutes = require('./routes/class'); // Replace with actual class route file
 
-
-mongoose
-  .connect("mongodb://127.0.0.1:27017/workshops", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
-
-// Use routes
-app.use("/api", authRoutes); // All authentication routes are prefixed with "/auth"
-app.use("/workshops", workshopRoutes); // All workshop-related routes are prefixed with "/workshops"
-app.use("/classes", classRoutes); // All class-related routes are prefixed with "/classes"
+app.use('/api/auth', authRoutes);
+app.use('/workshops', workshopRoutes);
+app.use('/classes', classRoutes);
 
 // Start the server
-const HUH = process.env.PORTT||3001;
-app.listen(HUH, () => console.log(`Server running on port ${HUH}`));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));

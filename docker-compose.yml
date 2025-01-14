@@ -1,0 +1,50 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3000:3001"
+    env_file:
+      - .env
+
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=postgres-container
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=CupStack54!
+      - DB_NAME=workshops
+    volumes:
+      - ./backend:/usr/src/app
+    depends_on:
+      - db
+    command: ["node", "server.js"]
+
+  frontend:
+    build:
+      context: ./yogaempire-main
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./yogaempire-main:/usr/src/app
+    depends_on:
+      - backend
+    command: ["npm", "run", "dev"]
+
+  db:
+    image: postgres:latest
+    container_name: postgres-container
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: CupStack54!
+      POSTGRES_DB: workshops
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data: {}
