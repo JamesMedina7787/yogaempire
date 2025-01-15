@@ -1,6 +1,6 @@
 import React from "react";
 import "../About.css";
-import Gia from '../assets/Gia-About.jfif'
+import Gia from '../assets/Gia-About.jpg'
 const About = () => {
   return (
 	<section className="about-container">

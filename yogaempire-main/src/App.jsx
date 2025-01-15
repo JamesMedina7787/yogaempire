@@ -7,7 +7,7 @@ import "./index.css"; // Optional, if you have styles
 import Navbar from "./components/navbar"; // Ensure this import exists at the top
 
 import Banner from './assets/banner.jpg'
-import AboutPic from './assets/Gia-About.jfif'
+import AboutPic from './assets/Gia-About.jpg'
 import HomePic from './assets/x2cr0w.png'
 import ContactPic from './assets/split.jpg'
 import LoginPic from './assets/x2plank.png'

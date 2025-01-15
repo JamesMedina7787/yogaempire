@@ -406,7 +406,7 @@ svg:hover {
     background-color: #f9f9f9;
   }
   .banner {
-    background-image: url('/path-to-banner/banner.png');
+    background-image: url('./assets/banner.jpg');
     background-size: cover;
     background-position: center;
     height: 250px; /* Match your design height */
