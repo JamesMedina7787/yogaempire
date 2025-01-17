@@ -1,0 +1,20 @@
+# Database Configuration
+
+# Zoom API Configuration
+ZOOM_API_KEY=ctzSHj9eQSKAvRYGiFyvw
+ZOOM_API_SECRET=avsyto4UpHufTqPNcLoPDLKef03PFmgU
+
+# Application URLs
+FRONTEND_URL=http://localhost:5173/
+BACKEND_URL=http://localhost:3001/
+
+# Ports
+PORT=5173
+PORTT=3001
+
+# MySQL Database Configuration
+DB_USER=postgres 
+DB_HOST=localhost
+DB_NAME=postgres
+DB_PASSWORD=CupStack54
+DB_PORT=5432
