@@ -25,4 +25,4 @@ RUN npm install -g rollup
 EXPOSE 5173
 
 # Start the application
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "build"]
