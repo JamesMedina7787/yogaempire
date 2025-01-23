@@ -1,28 +1,26 @@
-# Use Node.js LTS version as the base image
+# Use Node.js LTS version
 FROM node:18
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /usr/src/app
 
-# Copy package files to leverage Docker caching
+# Copy only package files to leverage Docker caching
 COPY package.json package-lock.json ./
 
-# Install dependencies and attempt to fix known vulnerabilities
-RUN npm install --legacy-peer-deps && npm audit fix || true
-
-# Manually remove deprecated or insecure packages if needed
-RUN npm uninstall request dos2unix node.extend
+# Install dependencies
+RUN npm install --legacy-peer-deps
 
 # Copy the rest of the application code
 COPY . .
 
-RUN chmod -R 755 /usr/src/app
+# Build the application
+RUN npm run build
 
+# Install a lightweight server to serve the build
+RUN npm install -g serve
 
-RUN npm install -g rollup
-
-# Expose the development port
+# Expose the port for serve
 EXPOSE 5173
 
-# Start the application
-CMD ["npm", "run", "build"]
+# Start the server
+CMD ["serve", "-s", "build", "-l", "5173"]
