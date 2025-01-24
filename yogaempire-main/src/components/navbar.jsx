@@ -14,7 +14,6 @@ const Navbar = () => {
     <nav className="navbar">
       <ul className="nav-list">
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/Classes">Classes</Link></li>
 
         {/* About Dropdown */}
         <li

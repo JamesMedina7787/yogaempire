@@ -22,19 +22,23 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - NODE_ENV=production
-      - DB_HOST=postgres-container
-      - DB_PORT=5432
-      - DB_USER=james
-      - DB_PASSWORD=CupStack54
-      - DB_NAME=workshops
+      NODE_ENV: ${NODE_ENV}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      FRONTEND_URL: ${FRONTEND_URL}
+      BACKEND_URL: ${BACKEND_URL}
+
     depends_on:
       - postgres-container
     volumes:
       - ./backend:/usr/src/app
     networks:
       - yogaempire-network
-    command: ["sh", "-c", "until nc -z postgres-container 5432; do echo 'Waiting for database'; node server.js"]
+    command: "sh -c 'until nc -z postgres-container 5432; do echo Waiting for database; sleep 1; done; node server.js'"
+
 
   frontend:
     build:
@@ -48,6 +52,9 @@ services:
       - yogaempire-network
     volumes:
       - ./yogaempire-main:/usr/src/app
+    environment:
+      - BACKEND_URL=http://backend:3001/
+  
     command: ["npm", "start"]
 
 networks:

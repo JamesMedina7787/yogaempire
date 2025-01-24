@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN npm install --legacy-peer-deps
+RUN npm ci
 
 # Copy the rest of the application code
 COPY . .
@@ -23,4 +23,4 @@ RUN npm install -g serve
 EXPOSE 5173
 
 # Start the server
-CMD ["serve", "-s", "build", "-l", "5173"]
+CMD ["serve", "-s", "build", "-l", "5173", "80"]

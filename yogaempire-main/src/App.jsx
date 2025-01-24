@@ -5,7 +5,7 @@ import Navbar from "./components/navbar";
 import Card from "./components/Card";
 import Home from "./components/Home";
 import About from "./components/About";
-import Classes from "./components/Classes";
+//import Classes from "./components/Classes";
 import Contact from "./components/Contact";
 import James from "./components/James";
 import Gia from "./components/Gia";
@@ -14,7 +14,7 @@ import Business from "./components/Business";
 //import Zoom from "./components/zoom";
 //import Workshops from "./components/workshops";
 //import Login from "./components/login";
-//import Register from "./components/Register";
+import Register from "./components/drafts/Register";
 import HomePic from "./assets/x2cr0w.png";
 import LoginPic from "./assets/x2plank.png";
 import Bac2 from "./assets/x3crow.png";
@@ -23,12 +23,13 @@ import "./index.css";
 
 function App() {
   const cards = [
-    { image: HomePic, title: "Gia", description: "Yoga Empire", destination: "/About" },
-    { image: LoginPic, title: "Gia", description: "Home", destination: "/Home" },
-    { image: LoginPic, title: "Gia", description: "Gia", destination: "/Gia" },
-    { image: LoginPic, title: "Gia", description: "James", destination: "/James" },
-    { image: Bac2, title: "Gia", description: "Business", destination: "/Business" },
-    { image: Bac2, title: "Gia", description: "", destination: "/Contact" }
+    { image: HomePic, title: "The Future of Yoga", description: "Yoga Empire", destination: "/About" },
+
+    { image: LoginPic, title: "Gia", description: "Ashtanga Vinyasa Flow", destination: "about/Gia" },
+    { image: LoginPic, title: "James", description: "Fitness Professional", destination: "about/James" },
+    { image: Bac2, title: "Our Life", description: "Business", destination: "about/Business" },
+    { image: Bac2, title: "Email Us", description: "Contact-Form", destination: "/Contact" },
+    { image: LoginPic, title: "Yoga Empire", description: "Home", destination: "/" }
 
   ];
 
@@ -41,12 +42,12 @@ function App() {
         <Navbar className="navbar" />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Classes" element={<Classes />} />
           <Route path="/About" element={<About />} />
           <Route path="/about/james" element={<James />} />
           <Route path="/about/gia" element={<Gia />} />
           <Route path="/about/business" element={<Business />} />
           <Route path="/Contact" element={<Contact />} />
+          <Route path="/drafts/Register" element={<Register />} />
         </Routes>
 
         <div className="centered-flex">

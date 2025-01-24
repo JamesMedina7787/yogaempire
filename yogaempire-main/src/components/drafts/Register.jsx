@@ -1,91 +1,118 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 const Register = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user");
+  const [formData, setFormData] = useState({
+    name: "",
+    password: "",
+    role: "client", // Default role
+  });
   const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
 
-  // Get backend URL from environment variable
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
+  // Handle form input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-  const handleRegister = async (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage(""); // Clear any previous messages
 
     try {
-      console.log("Sending registration request...");
-      
-      // Send registration data to the backend
-      const response = await axios.post(
-        `${BACKEND_URL}/api/auth/register`,
-        { username, password, role },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true, // Include credentials if using cookies or session-based authentication
-        }
-      );
+      const response = await fetch("http://localhost:3001/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      if (response.data && response.data.user) {
-        setMessage(`User "${response.data.user.username}" registered successfully!`);
-        setError(""); // Clear error
-        setUsername(""); // Clear username field
-        setPassword(""); // Clear password field
-        setRole("user"); // Reset role to default
-        console.log("Registration successful:", response.data);
+      const data = await response.json();
+      if (response.ok) {
+        setMessage(`Success: ${data.message}`);
+        setFormData({ name: "", password: "", role: "client" }); // Reset form
       } else {
-        setError("Unexpected response from the server.");
-        console.error("Unexpected response:", response);
+        setMessage(`Error: ${data.error}`);
       }
-    } catch (err) {
-      console.error("Registration failed:", err);
-
-      if (err.response && err.response.data && err.response.data.error) {
-        setError(err.response.data.error); // Backend error message
-      } else if (err.request) {
-        setError("Failed to connect to the server. Please try again later.");
-      } else {
-        setError("An unexpected error occurred. Please try again.");
-      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      setMessage("Error: Could not connect to the server.");
     }
   };
 
   return (
-    <div className="digital-class-section">
-      <h3>Register</h3>
-      <form onSubmit={handleRegister}>
-        <label>
-          Username:
+    <div className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-md">
+      <h1 className="text-2xl font-bold mb-4">Register</h1>
+      {message && (
+        <div
+          className={`p-2 mb-4 rounded ${
+            message.startsWith("Success")
+              ? "bg-green-100 text-green-800"
+              : "bg-red-100 text-red-800"
+          }`}
+        >
+          {message}
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium">
+            Name
+          </label>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
             required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
-        </label>
-        <label>
-          Password:
+        </div>
+
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium">
+            Password
+          </label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
-        </label>
-        <label>
-          Role:
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="user">User</option>
+        </div>
+
+        <div>
+          <label htmlFor="role" className="block text-sm font-medium">
+            Role
+          </label>
+          <select
+            id="role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="client">Client</option>
             <option value="admin">Admin</option>
           </select>
-        </label>
-        <button type="submit">Register</button>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          Register
+        </button>
       </form>
-      {message && <p style={{ color: "green" }}>{message}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };

@@ -10,6 +10,7 @@ WORKDIR /usr/src/app
 # Copy package files and install dependencies
 COPY package.json package-lock.json ./
 RUN npm install
+RUN npm install bcrypt
 
 # Copy the rest of the application code
 COPY . .

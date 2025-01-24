@@ -1,97 +1,97 @@
-require("dotenv").config();
-const cors = require("cors");
-const express = require("express");
-const axios = require("axios");
-const { Pool } = require("pg");
+// server.js
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors'); // Import the CORS middleware
+const bcrypt = require('bcrypt');
+const { Sequelize, DataTypes } = require('sequelize');
 
+// Initialize Express app
 const app = express();
-
-// Enable CORS
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173", // Frontend URL from .env
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, // Allow cookies and credentials
-  })
-);
-
-// Allow preflight requests for all routes
-app.options("*", cors());
-
-// Middleware
 app.use(express.json());
 
-// PostgreSQL connection
-const pool = new Pool({
-  user: process.env.DB_USER || "postgres",
-  host: process.env.DB_HOST || "localhost",
-  database: process.env.DB_NAME || "postgres",
-  password: process.env.DB_PASSWORD || "",
-  port: process.env.DB_PORT || 5432,
+// Enable CORS
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow requests from your frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  credentials: true, // Allow cookies and authorization headers if needed
+}));
+
+// Environment variables
+const PORT = process.env.PORT || 3001;
+const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+
+// Initialize Sequelize for PostgreSQL
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: 'postgres',
+  logging: false,
 });
 
-// Log database connection status and start the server
-pool.connect()
-  .then(() => {
-    console.log("PostgreSQL connected");
-    const PORT = process.env.BACKEND_PORT || 3001;
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("PostgreSQL connection error:", err);
-    process.exit(1); // Exit the application if the DB connection fails
-  });
+// Define User model
+const User = sequelize.define('User', {
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  role: {
+    type: DataTypes.ENUM('admin', 'client'),
+    allowNull: false,
+    defaultValue: 'client',
+  },
+});
 
-// Test database connection route
-app.get("/test-db", async (req, res) => {
+// Sync the database
+(async () => {
   try {
-    const result = await pool.query("SELECT 1");
-    res.status(200).json({ success: true, message: "Database connection is working!" });
+    await sequelize.authenticate();
+    console.log('Connected to the database.');
+    await sequelize.sync({ alter: true });
+    console.log('Database synchronized.');
   } catch (err) {
-    console.error("Database connection error:", err.message);
-    res.status(500).json({ success: false, error: err.message });
+    console.error('Unable to connect to the database:', err);
+    process.exit(1); // Exit the process if the database connection fails
   }
-});
+})();
 
-// Zoom API example route
-app.post("/api/create-meeting", async (req, res) => {
+// Routes
+// Registration route
+app.post('/register', async (req, res) => {
+  const { name, password, role } = req.body;
+
+  // Input validation
+  if (!name || !password || !role) {
+    return res.status(400).json({ error: 'All fields are required: name, password, role' });
+  }
+
   try {
-    const response = await axios.post(
-      "https://api.zoom.us/v2/users/me/meetings",
-      req.body,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.ZOOM_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    res.status(200).json(response.data);
-  } catch (error) {
-    console.error("Error creating Zoom meeting:", error.message);
-    res.status(500).json({ error: "Failed to create Zoom meeting" });
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create user in the database
+    const user = await User.create({
+      name,
+      password: hashedPassword,
+      role,
+    });
+
+    res.status(201).json({ message: 'User registered successfully!', user: { name: user.name, role: user.role } });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred during registration.' });
   }
 });
 
-// Import and use routes
-const authRoutes = require("./routes/auth");
-const workshopRoutes = require("./routes/workshops");
-const classRoutes = require("./routes/class");
-
-app.use("/api/auth", authRoutes);
-app.use("/workshops", workshopRoutes);
-app.use("/classes", classRoutes);
-
-// Log incoming requests
-app.use((req, res, next) => {
-  console.log(`${req.method} request to ${req.path}`);
-  next();
+// Health check route
+app.get('/health', (req, res) => {
+  res.status(200).json({ message: 'Server is running.' });
 });
 
-// Catch-all route for undefined endpoints
-app.use((req, res) => {
-  res.status(404).json({ error: "Endpoint not found" });
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -5,8 +5,8 @@ ZOOM_API_KEY=ctzSHj9eQSKAvRYGiFyvw
 ZOOM_API_SECRET=avsyto4UpHufTqPNcLoPDLKef03PFmgU
 
 # Application URLs
-FRONTEND_URL=http://localhost:5173/
-BACKEND_URL=http://localhost:3001/
+FRONTEND_URL=http://localhost:5173
+BACKEND_URL=http://localhost:3001
 
 # Ports
 PORT=5173

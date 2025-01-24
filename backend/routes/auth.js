@@ -5,7 +5,7 @@ const pool = require("../db"); // Import PostgreSQL connection pool
 const router = express.Router();
 
 // Environment variables for JWT
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Register Route
 router.post("/register", async (req, res) => {
