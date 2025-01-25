@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "james",
+    "password": "CupStack54",
+    "database": "workshops",
+    "host": "postgres-container",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "james",
+    "password": "CupStack54",
+    "database": "database_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "james",
+    "password": "CupStack54",
+    "database": "workshops_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

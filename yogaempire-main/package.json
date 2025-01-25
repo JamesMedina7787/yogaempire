@@ -10,20 +10,27 @@
     "clean": "rm -rf dist && rm -rf node_modules"
   },
   "dependencies": {
+    "@fullcalendar/common": "^5.11.5",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/interaction": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
     "@parcel/watcher": "^2.5.0",
     "axios": "^1.7.9",
     "body-parser": "^1.20.3",
     "core-js": "^3.40.0",
     "emailjs-com": "^3.2.0",
     "react": "^18.3.1",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.3.1",
     "react-router": "^6.14.1",
     "react-router-dom": "^6.14.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.7",
+    "@babel/preset-env": "^7.26.7",
     "@eslint/js": "^9.13.0",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.3",
     "buffer": "^6.0.3",
     "eslint": "^9.13.0",
@@ -33,6 +40,6 @@
     "globals": "^15.11.0",
     "parcel": "^2.13.3",
     "process": "^0.11.10",
-    "vite": "^5.4.10"
+    "vite": "^6.0.11"
   }
 }

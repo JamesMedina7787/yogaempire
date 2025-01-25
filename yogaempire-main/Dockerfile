@@ -16,11 +16,11 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Install a lightweight server to serve the build
-RUN npm install -g serve
+# Install serve locally (no global installation needed)
+RUN npm install serve
 
 # Expose the port for serve
 EXPOSE 5173
 
 # Start the server
-CMD ["serve", "-s", "build", "-l", "5173", "80"]
+CMD ["npx", "serve", "-s", "build", "-l", "5173"]
