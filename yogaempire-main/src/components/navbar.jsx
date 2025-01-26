@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [aboutDropdown, setAboutDropdown] = useState(false);
+  const [adminDropdown, setAdminDropdown] = useState(false);
 
-  // Show Dropdown
-  const showDropdown = () => setAboutDropdown(true);
+  // Show Dropdown for About
+  const showAboutDropdown = () => setAboutDropdown(true);
+  const hideAboutDropdown = () => setAboutDropdown(false);
 
-  // Hide Dropdown
-  const hideDropdown = () => setAboutDropdown(false);
+   // Show Dropdown for About
+   const showAdminDropdown = () => setAdminDropdown(true);
+   const hideAdminDropdown = () => setAdminDropdown(false);
 
   return (
     <nav className="navbar">
@@ -18,8 +21,8 @@ const Navbar = () => {
         {/* About Dropdown */}
         <li
           className="dropdown"
-          onMouseEnter={showDropdown}
-          onMouseLeave={hideDropdown}
+          onMouseEnter={showAboutDropdown}
+          onMouseLeave={hideAboutDropdown}
         >
           <span>About</span>
           {aboutDropdown && (
@@ -30,8 +33,27 @@ const Navbar = () => {
             </ul>
           )}
         </li>
+     
 
         <li><Link to="/Contact">Contact</Link></li>
+        <li
+          className="dropdown"
+          onMouseEnter={showAdminDropdown}
+          onMouseLeave={hideAdminDropdown}
+        >
+          <span>Admin</span>
+          {adminDropdown && (
+            <ul className="dropdown-menu">
+              
+              <li><Link to="/drafts/AdminPanel">AdminPage</Link></li>
+              
+              
+
+            </ul>
+          )}
+        </li>
+
+        
       </ul>
     </nav>
   );

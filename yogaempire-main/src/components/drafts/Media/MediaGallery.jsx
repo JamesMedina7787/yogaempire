@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const MediaGallery = () => {
   const [mediaList, setMediaList] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMedia = async () => {
@@ -14,6 +15,7 @@ const MediaGallery = () => {
         setMediaList(data);
       } catch (error) {
         console.error("Failed to fetch media:", error);
+        setError("Failed to fetch media. Please try again later.");
       }
     };
 
@@ -21,17 +23,27 @@ const MediaGallery = () => {
   }, []);
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg">
+    <div className="p-6 bg-white rounded-lg shadow-lg">hello
       <h2 className="text-xl font-bold mb-4">Media Gallery</h2>
-      <div className="grid grid-cols-3 gap-4">
-        {mediaList.map((item) => (
-          <img
-            key={item.id}
-            src={item.url}
-            alt={item.title}
-            className="rounded-lg shadow-lg"
-          />
-        ))}
+      {error && <p className="text-red-500">{error}</p>}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {mediaList.length === 0 ? (
+          <p>No media available.</p>
+        ) : (
+          mediaList.map((item) => (
+            <img
+              key={item.id}
+              src={item.url || "/default-image.png"}
+              alt={item.title}
+              className="rounded-lg shadow-lg"
+              loading="lazy"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/default-image.png";
+              }}
+            />
+          ))
+        )}
       </div>
     </div>
   );
