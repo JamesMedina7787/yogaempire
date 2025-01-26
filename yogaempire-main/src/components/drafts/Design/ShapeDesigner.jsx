@@ -1,60 +1,60 @@
 import React, { useState } from "react";
 
-const ShapeDesigner = () => {
-  const [shape, setShape] = useState({
-    width: 100,
-    height: 100,
-    borderRadius: 0,
-    backgroundColor: "#3498db",
-  });
+const ShapeDesigner = ({ block, onUpdate }) => {
+  const [shape, setShape] = useState(block);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setShape((prev) => ({
       ...prev,
-      [name]: name === "width" || name === "height" || name === "borderRadius" ? parseInt(value) : value,
+      [name]: name === "borderRadius" || name === "width" || name === "height" ? parseInt(value) : value,
     }));
   };
 
+  const saveChanges = () => {
+    onUpdate(shape);
+  };
+
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold mb-4">Shape Designer</h2>
+    <div className="p-4 bg-white rounded-lg shadow-lg">
+      <h2 className="text-xl font-bold mb-4">Customize Block</h2>
       <div
-        className="preview mb-4"
         style={{
           width: `${shape.width}px`,
           height: `${shape.height}px`,
           borderRadius: `${shape.borderRadius}%`,
           backgroundColor: shape.backgroundColor,
+          backgroundImage: shape.backgroundImage ? `url(${shape.backgroundImage})` : "none",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
+        className="preview mb-4"
       />
-      <div className="controls grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm">Width (px)</label>
+      <div className="controls">
+        <label>
+          Width (px)
           <input
             type="range"
             name="width"
             min="50"
-            max="300"
+            max="500"
             value={shape.width}
             onChange={handleChange}
-            aria-label="Width"
           />
-        </div>
-        <div>
-          <label className="block text-sm">Height (px)</label>
+        </label>
+        <label>
+          Height (px)
           <input
             type="range"
             name="height"
             min="50"
-            max="300"
+            max="500"
             value={shape.height}
             onChange={handleChange}
-            aria-label="Height"
           />
-        </div>
-        <div>
-          <label className="block text-sm">Border Radius (%)</label>
+        </label>
+        <label>
+          Border Radius (%)
           <input
             type="range"
             name="borderRadius"
@@ -62,20 +62,21 @@ const ShapeDesigner = () => {
             max="50"
             value={shape.borderRadius}
             onChange={handleChange}
-            aria-label="Border Radius"
           />
-        </div>
-        <div>
-          <label className="block text-sm">Background Color</label>
+        </label>
+        <label>
+          Background Color
           <input
             type="color"
             name="backgroundColor"
             value={shape.backgroundColor}
             onChange={handleChange}
-            aria-label="Background Color"
           />
-        </div>
+        </label>
       </div>
+      <button onClick={saveChanges} className="bg-blue-500 text-white px-4 py-2 mt-4">
+        Save Changes
+      </button>
     </div>
   );
 };

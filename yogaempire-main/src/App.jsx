@@ -62,17 +62,6 @@ function App() {
             />
           </Routes>
 
-          <div className="centered-flex">
-            {cards.map((card, index) => (
-              <Card
-                key={index}
-                image={card.image}
-                title={card.title}
-                description={card.description}
-                destination={card.destination}
-              />
-            ))}
-          </div>
         </main>
         <footer className="footer">
           <p>© 2024 Yoga Empire. All rights reserved.</p>

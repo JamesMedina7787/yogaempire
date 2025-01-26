@@ -247,6 +247,139 @@ p {
   color: #FF7E79;
 }
 
+
+
+/* adminPanel */
+/* admin-panel.css */
+
+.design-area {
+  position: relative;
+  background: #f0f4f8;
+  border: 2px dashed #ccc;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.block {
+  cursor: move;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.block:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.block textarea {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block img {
+  object-fit: cover;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #ffffff;
+  border-bottom: 1px solid #ccc;
+}
+
+.toolbar button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toolbar button:hover {
+  background: #2980b9;
+}
+
+.toolbar input[type="color"] {
+  border: none;
+  cursor: pointer;
+}
+
+.snap-guide {
+  position: absolute;
+  background: rgba(52, 152, 219, 0.3);
+  z-index: 999;
+}
+
+/* Custom z-indexes for stacking context */
+.z-200 {
+  z-index: 200; /* Toolbar */
+}
+
+.z-100 {
+  z-index: 100; /* Shape Designer, Animation Picker */
+}
+
+.z-10 {
+  z-index: 10; /* Grid */
+}
+.background-grid {
+  border: 2px solid #ccc;
+  overflow: hidden; /* Prevent overflow */
+  margin: 0 auto;
+}
+
+
+.btn {
+  background-color: #3498db;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2874a6;
+  transform: translateY(-2px); /* Subtle hover effect */
+}
+
+.admin-panel .background-grid {
+  max-width: 1200px; /* Optional: Set max width for better readability */
+  margin: 0 auto; /* Center the canvas horizontally */
+  border: 1px solid #ddd; /* Optional: Border for better visibility */
+}
+
+.block {
+  cursor: move;
+  transition: all 0.3s ease; /* Smooth transitions for drag/drop */
+}
+
+.block:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Visual hover effect */
+}
+
+
+.animated-preview {
+  transition: all 0.3s ease-in-out;
+}
+.bounce {
+  animation: bounce 1s infinite;
+}
+.pulse {
+  animation: pulse 1s infinite;
+}
+/* Add other animations as needed */
+
+
 /* Base styles for animation */
 .ufoLoad {
   opacity: 0;

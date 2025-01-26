@@ -155,6 +155,37 @@
   text-decoration: underline;
 }
 
+
+.grid-container {
+  position: relative;
+  background-color: #f4f4f4;
+  padding: 20px;
+  min-height: 100vh;
+  border: 2px dashed gray;
+}
+
+.block {
+  position: absolute;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.menu {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-right: 2px solid #ccc;
+}
+
+textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  background: transparent;
+}
+
+
 /* Navigation Menu */
 .navbar {
   background: #333;
