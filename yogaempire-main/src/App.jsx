@@ -1,6 +1,6 @@
-import ReactDOM from "react-dom";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./components/drafts/SignInSignUp/AuthContext";
 import Navbar from "./components/navbar";
 import Card from "./components/Card";
 import Home from "./components/Home";
@@ -32,44 +32,53 @@ function App() {
   ];
 
   return (
-    <Router>
-      <header className="header">
-        <div className="banner"></div>
-      </header>
-      <main>
-        <Navbar className="navbar" />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/about/james" element={<James />} />
-          <Route path="/about/gia" element={<Gia />} />
-          <Route path="/about/business" element={<Business />} />
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/drafts/SignInSignUp/Register" element={<Register />} />
-          <Route path="/drafts/Design/ShapeDesigner" element={<ShapeDesigner />} />
-          <Route path="/drafts/Media/MediaUploader" element={<MediaUploader />} />
-          <Route path="/drafts/SignInSignUp/LoginSection" element={<LoginSection />} />
-          <Route path="/drafts/Calendar/CalendarGrid" element={<CalendarGrid />} />
-          <Route path="/drafts/AdminPanel" element={<AdminPanel />} />
-          <Route path="*" element={<div>Page Not Found</div>} />
-        </Routes>
-
-        <div className="centered-flex">
-          {cards.map((card, index) => (
-            <Card
-              key={index}
-              image={card.image}
-              title={card.title}
-              description={card.description}
-              destination={card.destination}
+    <AuthProvider>
+      <Router>
+        <header className="header">
+          <div className="banner"></div>
+        </header>
+        <main>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/about/james" element={<James />} />
+            <Route path="/about/gia" element={<Gia />} />
+            <Route path="/about/business" element={<Business />} />
+            <Route path="/Contact" element={<Contact />} />
+            <Route path="/drafts/SignInSignUp/Register" element={<Register />} />
+            <Route path="/drafts/SignInSignUp/LoginSection" element={<LoginSection />} />
+            <Route path="/drafts/Design/ShapeDesigner" element={<ShapeDesigner />} />
+            <Route path="/drafts/Media/MediaUploader" element={<MediaUploader />} />
+            <Route path="/drafts/Calendar/CalendarGrid" element={<CalendarGrid />} />
+            <Route path="/drafts/AdminPanel" element={<AdminPanel />} />
+            <Route
+              path="*"
+              element={
+                <div style={{ textAlign: "center", fontSize: "1.5rem", padding: "2rem" }}>
+                  <p>Page Not Found</p>
+                </div>
+              }
             />
-          ))}
-        </div>
-      </main>
-      <footer className="footer">
-        <p>© 2024 Yoga Empire. All rights reserved.</p>
-      </footer>
-    </Router>
+          </Routes>
+
+          <div className="centered-flex">
+            {cards.map((card, index) => (
+              <Card
+                key={index}
+                image={card.image}
+                title={card.title}
+                description={card.description}
+                destination={card.destination}
+              />
+            ))}
+          </div>
+        </main>
+        <footer className="footer">
+          <p>© 2024 Yoga Empire. All rights reserved.</p>
+        </footer>
+      </Router>
+    </AuthProvider>
   );
 }
 

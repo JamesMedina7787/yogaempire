@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./drafts/SignInSignUp/AuthContext";
 
 const Navbar = () => {
+  const { userRole, logout } = useContext(AuthContext); // Access role and logout
   const [aboutDropdown, setAboutDropdown] = useState(false);
   const [adminDropdown, setAdminDropdown] = useState(false);
 
-  // Show Dropdown for About
   const showAboutDropdown = () => setAboutDropdown(true);
   const hideAboutDropdown = () => setAboutDropdown(false);
 
-   // Show Dropdown for About
-   const showAdminDropdown = () => setAdminDropdown(true);
-   const hideAdminDropdown = () => setAdminDropdown(false);
+  const showAdminDropdown = () => setAdminDropdown(true);
+  const hideAdminDropdown = () => setAdminDropdown(false);
 
   return (
     <nav className="navbar">
@@ -33,27 +33,33 @@ const Navbar = () => {
             </ul>
           )}
         </li>
-     
 
         <li><Link to="/Contact">Contact</Link></li>
-        <li
-          className="dropdown"
-          onMouseEnter={showAdminDropdown}
-          onMouseLeave={hideAdminDropdown}
-        >
-          <span>Admin</span>
-          {adminDropdown && (
-            <ul className="dropdown-menu">
-              
-              <li><Link to="/drafts/AdminPanel">AdminPage</Link></li>
-              
-              
 
-            </ul>
-          )}
-        </li>
+        {/* Admin Dropdown (Restricted to Admins Only) */}
+        {userRole === "admin" && (
+          <li
+            className="dropdown"
+            onMouseEnter={showAdminDropdown}
+            onMouseLeave={hideAdminDropdown}
+          >
+            <span>Admin</span>
+            {adminDropdown && (
+              <ul className="dropdown-menu">
+                <li><Link to="/drafts/AdminPanel">AdminPage</Link></li>
+              </ul>
+            )}
+          </li>
+        )}
 
-        
+        {/* Logout Button */}
+        {userRole && (
+          <li>
+            <button onClick={logout} className="logout-button">
+              Logout
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );

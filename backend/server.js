@@ -1,14 +1,15 @@
-// server.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const { Sequelize, DataTypes } = require('sequelize');
-const { v4: uuidv4 } = require('uuid');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 const axios = require('axios');
+const bcrypt = require('bcrypt');
+const { Sequelize, DataTypes } = require('sequelize');
+const { v4: uuidv4 } = require('uuid');
+const { authenticate, authorizeAdmin } = require('./middleware/authenticate'); // Middleware for auth
+const jwt = require('jsonwebtoken'); // Add this at the top of your file if not already included
 
 // Initialize Express app
 const app = express();
@@ -17,27 +18,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Enable CORS with dynamic origin handling
 const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:5173'];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  })
+);
 
 // Serve uploaded media files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Environment variables
 const PORT = process.env.PORT || 3001;
-const {
-  DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME,
-  ZOOM_API_KEY, ZOOM_API_SECRET,
-} = process.env;
+const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, ZOOM_API_SECRET } = process.env;
 
 // Initialize Sequelize for PostgreSQL
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
@@ -61,7 +61,6 @@ const Event = sequelize.define('Event', {
   description: { type: DataTypes.TEXT, allowNull: true },
   startTime: { type: DataTypes.DATE, allowNull: false },
   endTime: { type: DataTypes.DATE, allowNull: false },
-  zoomLink: { type: DataTypes.STRING, allowNull: true },
   createdBy: { type: DataTypes.UUID, allowNull: false },
 });
 
@@ -98,39 +97,24 @@ const upload = multer({ storage });
 app.post('/register', async (req, res) => {
   const { name, password, role } = req.body;
 
-  // Validate input fields
   if (!name || !password || !role) {
     return res.status(400).json({ error: 'All fields are required: name, password, role' });
   }
 
-  // Validate role (allow only 'admin' or 'client')
   const allowedRoles = ['admin', 'client'];
   if (!allowedRoles.includes(role)) {
     return res.status(400).json({ error: `Role must be one of: ${allowedRoles.join(', ')}` });
   }
 
   try {
-    // Check if the user already exists
     const existingUser = await User.findOne({ where: { name } });
     if (existingUser) {
       return res.status(409).json({ error: 'User with this name already exists.' });
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create the user
-    const user = await User.create({
-      name,
-      password: hashedPassword,
-      role,
-    });
-
-    // Send a response with minimal user details
-    res.status(201).json({
-      message: 'User registered successfully!',
-      user: { id: user.id, name: user.name, role: user.role },
-    });
+    const user = await User.create({ name, password: hashedPassword, role });
+    res.status(201).json({ message: 'User registered successfully!', user: { id: user.id, name: user.name, role: user.role } });
   } catch (err) {
     console.error('Error during registration:', err);
     res.status(500).json({ error: 'An error occurred during registration.' });
@@ -141,28 +125,27 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   const { name, password } = req.body;
 
-  // Validate input
   if (!name || !password) {
     return res.status(400).json({ error: 'Name and password are required.' });
   }
 
   try {
-    // Find the user by name
     const user = await User.findOne({ where: { name } });
-    
-    // Validate user existence and password
-    if (!user) {
-      return res.status(404).json({ error: 'User not found.' });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).json({ error: 'Invalid credentials.' });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ error: 'Invalid password.' });
-    }
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user.id, role: user.role }, // Include ID and role in payload
+      process.env.JWT_SECRET,          // Secret key
+      { expiresIn: '1h' }              // Corrected "expiresIn"
+    );
 
-    // Send user details, including the role
+    // Send response with token and user details
     res.status(200).json({
       message: 'Login successful!',
+      token, // Include the token in the response
       user: { id: user.id, name: user.name, role: user.role }
     });
   } catch (err) {
@@ -172,37 +155,8 @@ app.post('/login', async (req, res) => {
 });
 
 
-const YogaBlock = sequelize.define('YogaBlock', {
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: uuidv4,
-    primaryKey: true,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  blockData: {
-    type: DataTypes.JSON,
-    allowNull: false,
-  },
-  groupId: {
-    type: DataTypes.UUID,
-    allowNull: true, // Null if not grouped
-  },
-  zIndex: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0, // Layering for stacking blocks
-  },
-  createdBy: {
-    type: DataTypes.UUID,
-    allowNull: false,
-  },
-});
-
-
-// Create Event
-app.post('/events', async (req, res) => {
+// Admin: Create Event
+app.post('/events', authenticate, authorizeAdmin, async (req, res) => {
   const { title, description, startTime, endTime, createdBy } = req.body;
   if (!title || !startTime || !endTime || !createdBy) {
     return res.status(400).json({ error: 'Title, startTime, endTime, and createdBy are required.' });
@@ -217,19 +171,8 @@ app.post('/events', async (req, res) => {
   }
 });
 
-// Fetch All Events
-app.get('/events', async (req, res) => {
-  try {
-    const events = await Event.findAll();
-    res.status(200).json(events);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'An error occurred while fetching events.' });
-  }
-});
-
-// Media Upload
-app.post('/media', upload.single('media'), async (req, res) => {
+// Admin: Upload Media
+app.post('/media', authenticate, authorizeAdmin, upload.single('media'), async (req, res) => {
   const { title, createdBy } = req.body;
   if (!req.file || !title || !createdBy) {
     return res.status(400).json({ error: 'Title, media file, and createdBy are required.' });
@@ -244,8 +187,8 @@ app.post('/media', upload.single('media'), async (req, res) => {
   }
 });
 
-// Fetch Media
-app.get('/media', async (req, res) => {
+// Fetch Media (Authenticated Users)
+app.get('/media', authenticate, async (req, res) => {
   try {
     const mediaList = await Media.findAll();
     res.status(200).json(mediaList);
@@ -255,26 +198,30 @@ app.get('/media', async (req, res) => {
   }
 });
 
-// Zoom Integration
-app.post('/zoom/create-meeting', async (req, res) => {
-  const { topic, start_time, duration } = req.body;
-
-  try {
-    const response = await axios.post(
-      'https://api.zoom.us/v2/users/me/meetings',
-      { topic, start_time, duration, type: 2 },
-      { headers: { Authorization: `Bearer ${process.env.ZOOM_API_SECRET}` } }
-    );
-    res.status(201).json(response.data);
-  } catch (err) {
-    console.error('Error creating Zoom meeting:', err);
-    res.status(500).json({ error: 'Unable to create Zoom meeting.' });
-  }
-});
-
 // Health Check Route
 app.get('/health', (req, res) => {
   res.status(200).json({ message: 'Server is running.' });
+});
+
+// Debugging Route to Test Login API
+app.get("/test-login", async (req, res) => {
+  try {
+    const response = await fetch("http://localhost:3001/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: "admin", // Replace with a valid username
+        password: "adminpassword", // Replace with the correct password
+      }),
+    });
+
+    const data = await response.json(); // Parse the response JSON
+    console.log("Response from /login:", data); // Log the response
+    res.status(200).json(data); // Return the response to the client
+  } catch (err) {
+    console.error("Error testing /login:", err);
+    res.status(500).json({ error: "Failed to test login endpoint." });
+  }
 });
 
 // Start the Server

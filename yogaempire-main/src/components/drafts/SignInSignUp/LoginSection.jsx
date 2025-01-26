@@ -1,115 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "./AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginSection = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    password: "",
-  });
+  const { setAuthToken } = useContext(AuthContext); // Update token in context
+  const [formData, setFormData] = useState({ name: "", password: "" });
   const [message, setMessage] = useState("");
-  const [userRole, setUserRole] = useState(""); // To display the user's role
-  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(""); // Clear any previous messages
-    setUserRole(""); // Clear previous role
-    setIsLoading(true); // Set loading state
+    setMessage("");
 
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
       if (response.ok) {
-        setMessage(`Welcome back, ${data.user.name}!`);
-        setUserRole(data.user.role); // Set the user's role
-        // Additional logic for setting user session or redirecting
+        localStorage.setItem("token", data.token); // Save token
+        setAuthToken(data.token); // Update AuthContext
+        navigate("/"); // Redirect after login
       } else {
         setMessage(`Error: ${data.error || "Login failed."}`);
       }
-    } catch (error) {
-      console.error("Error during login:", error);
+    } catch (err) {
+      console.error("Error during login:", err);
       setMessage("Error: Could not connect to the server.");
-    } finally {
-      setIsLoading(false); // Reset loading state
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-md">
-      <h1 className="text-2xl font-bold mb-4">Login</h1>
-      {message && (
-        <div
-          className={`p-2 mb-4 rounded ${
-            message.startsWith("Welcome")
-              ? "bg-green-100 text-green-800"
-              : "bg-red-100 text-red-800"
-          }`}
-        >
-          {message}
-        </div>
-      )}
-      {userRole && (
-        <div className="p-2 mb-4 rounded bg-blue-100 text-blue-800">
-          Role: {userRole}
-        </div>
-      )}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium">
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-400 disabled:cursor-not-allowed"
-          disabled={isLoading}
-        >
-          {isLoading ? "Logging in..." : "Login"}
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="name"
+        placeholder="Username"
+        value={formData.name}
+        onChange={handleChange}
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value={formData.password}
+        onChange={handleChange}
+      />
+      <button type="submit">Login</button>
+      {message && <p>{message}</p>}
+    </form>
   );
 };
 
-export default LoginSection;
+export default LoginSection

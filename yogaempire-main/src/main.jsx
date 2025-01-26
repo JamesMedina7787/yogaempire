@@ -1,11 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom/client"; // Correct import
-import App from "./App"; // Ensure this path matches
-import "./index.css"; // Optional, if you have styles
-import "./contact-form.css";
+// main.jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { AuthProvider } from './components/drafts/SignInSignUp/AuthContext';
+import './index.css';
+import './contact-form.css';
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </React.StrictMode>
 );
