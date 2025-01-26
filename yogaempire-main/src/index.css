@@ -65,6 +65,30 @@ p {
   background-color: #FF5050;
 }
 
+
+.block-menu {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.block-item {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.block-item:hover {
+  background-color: #eee;
+}
+
 /* Welcome Section */
 .welcome-section {
   text-align: center;

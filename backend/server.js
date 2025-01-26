@@ -172,6 +172,35 @@ app.post('/login', async (req, res) => {
 });
 
 
+const YogaBlock = sequelize.define('YogaBlock', {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: uuidv4,
+    primaryKey: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  blockData: {
+    type: DataTypes.JSON,
+    allowNull: false,
+  },
+  groupId: {
+    type: DataTypes.UUID,
+    allowNull: true, // Null if not grouped
+  },
+  zIndex: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0, // Layering for stacking blocks
+  },
+  createdBy: {
+    type: DataTypes.UUID,
+    allowNull: false,
+  },
+});
+
+
 // Create Event
 app.post('/events', async (req, res) => {
   const { title, description, startTime, endTime, createdBy } = req.body;

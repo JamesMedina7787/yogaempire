@@ -1,11 +1,5 @@
 import React, { useState } from "react";
 
-const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/media`, {
-    method: "POST",
-    body: formData,
-  });
-  
-
 const MediaUploader = () => {
   const [media, setMedia] = useState(null);
 
@@ -22,7 +16,12 @@ const MediaUploader = () => {
         body: formData,
       });
 
+      if (!response.ok) {
+        throw new Error(`Upload failed: ${response.statusText}`);
+      }
+
       const data = await response.json();
+      setMedia(data.url); // Set the uploaded media URL for preview
       alert(`Uploaded successfully: ${data.url}`);
     } catch (error) {
       console.error("Upload error:", error);

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/media`);
-
 
 const MediaGallery = () => {
   const [mediaList, setMediaList] = useState([]);
@@ -9,6 +7,9 @@ const MediaGallery = () => {
     const fetchMedia = async () => {
       try {
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/media`);
+        if (!response.ok) {
+          throw new Error(`Error fetching media: ${response.statusText}`);
+        }
         const data = await response.json();
         setMediaList(data);
       } catch (error) {

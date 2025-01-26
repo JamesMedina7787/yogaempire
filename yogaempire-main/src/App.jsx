@@ -1,22 +1,19 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/navbar.jsx";
-import Card from "./components/Card.jsx";
-import Home from "./components/Home.jsx";
-import About from "./components/About.jsx";
-import Contact from "./components/Contact.jsx";
-import James from "./components/James.jsx";
-import Gia from "./components/Gia.jsx";
-import Business from "./components/Business.jsx";
-import AnimationPicker from "./components/drafts/Design/AnimationPicker.jsx";
+import Navbar from "./components/navbar";
+import Card from "./components/Card";
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import James from "./components/James";
+import Gia from "./components/Gia";
+import Business from "./components/Business";
+import CalendarGrid from "./components/drafts/Calendar/CalendarGrid.jsx";
+import MediaUploader from "./components/drafts/Media/MediaUploader.jsx";
 import ShapeDesigner from "./components/drafts/Design/ShapeDesigner.jsx";
 import Register from "./components/drafts/SignInSignUp/Register.jsx";
-import SocialContainer from "./components/drafts/Social/SocialContainer.jsx";
-import Instagram from "./components/drafts/Social/Instagram.jsx";
 import LoginSection from "./components/drafts/SignInSignUp/LoginSection.jsx";
-import CalendarGrid from "./components/drafts/Calendar/CalendarGrid.jsx";
-import CalendarTile from "./components/drafts/Calendar/CalendarTile.jsx";
 import AdminPanel from "./components/drafts/AdminPanel.jsx";
 import HomePic from "./assets/x2cr0w.png";
 import LoginPic from "./assets/x2plank.png";
@@ -49,16 +46,14 @@ function App() {
           <Route path="/about/business" element={<Business />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/drafts/SignInSignUp/Register" element={<Register />} />
-          <Route path="/drafts/Calendar/CalendarGrid" element={<CalendarGrid />} />
-          <Route path="/drafts/Calendar/CalendarTile" element={<CalendarTile />} />
           <Route path="/drafts/Design/ShapeDesigner" element={<ShapeDesigner />} />
-          <Route path="/drafts/Design/AnimationPicker" element={<AnimationPicker />} />
+          <Route path="/drafts/Media/MediaUploader" element={<MediaUploader />} />
           <Route path="/drafts/SignInSignUp/LoginSection" element={<LoginSection />} />
+          <Route path="/drafts/Calendar/CalendarGrid" element={<CalendarGrid />} />
           <Route path="/drafts/AdminPanel" element={<AdminPanel />} />
-          <Route path="/drafts/Social/Instagram" element={<Instagram />} />
-          <Route path="/drafts/Social/SocialContainer" element={<SocialContainer />} />
-          
+          <Route path="*" element={<div>Page Not Found</div>} />
         </Routes>
+
         <div className="centered-flex">
           {cards.map((card, index) => (
             <Card

@@ -10,7 +10,10 @@ const ShapeDesigner = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setShape((prev) => ({ ...prev, [name]: value }));
+    setShape((prev) => ({
+      ...prev,
+      [name]: name === "width" || name === "height" || name === "borderRadius" ? parseInt(value) : value,
+    }));
   };
 
   return (
@@ -27,7 +30,7 @@ const ShapeDesigner = () => {
       />
       <div className="controls grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm">Width</label>
+          <label className="block text-sm">Width (px)</label>
           <input
             type="range"
             name="width"
@@ -35,10 +38,11 @@ const ShapeDesigner = () => {
             max="300"
             value={shape.width}
             onChange={handleChange}
+            aria-label="Width"
           />
         </div>
         <div>
-          <label className="block text-sm">Height</label>
+          <label className="block text-sm">Height (px)</label>
           <input
             type="range"
             name="height"
@@ -46,10 +50,11 @@ const ShapeDesigner = () => {
             max="300"
             value={shape.height}
             onChange={handleChange}
+            aria-label="Height"
           />
         </div>
         <div>
-          <label className="block text-sm">Border Radius</label>
+          <label className="block text-sm">Border Radius (%)</label>
           <input
             type="range"
             name="borderRadius"
@@ -57,6 +62,7 @@ const ShapeDesigner = () => {
             max="50"
             value={shape.borderRadius}
             onChange={handleChange}
+            aria-label="Border Radius"
           />
         </div>
         <div>
@@ -66,6 +72,7 @@ const ShapeDesigner = () => {
             name="backgroundColor"
             value={shape.backgroundColor}
             onChange={handleChange}
+            aria-label="Background Color"
           />
         </div>
       </div>
