@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import CalendarGrid from "./Calendar/CalendarGrid";
-import MediaUploader from "./Media/MediaUploader";
+//import MediaUploader from "./Media/MediaUploader";
 import ShapeDesigner from "./Design/ShapeDesigner";
 
 const AdminPanel = () => {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
   const [blocks, setBlocks] = useState([]);
   const [activeBlock, setActiveBlock] = useState(null);
 
@@ -60,9 +60,7 @@ const AdminPanel = () => {
       <div className="calendar-section col-span-2">
           <CalendarGrid />
         </div>
-        <div className="media-social-section col-span-1 space-y-6">
-          <MediaUploader />
-        </div>
+
         <div className="zoom-design-section col-span-3 space-y-6">
           <ShapeDesigner />
         </div>
