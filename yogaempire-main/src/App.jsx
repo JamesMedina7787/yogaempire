@@ -15,6 +15,7 @@ import Business from "./components/Business";
 //import Register from "./components/drafts/SignInSignUp/Register.jsx";
 //import LoginSection from "./components/drafts/SignInSignUp/LoginSection.jsx";
 //import AdminPanel from "./components/drafts/AdminPanel.jsx";
+//import Zoom from "./components/drafts/Zoom/Zoom.jsx";
 import HomePic from "./assets/x2cr0w.png";
 import LoginPic from "./assets/x2plank.png";
 import Bac2 from "./assets/x3crow.png";
@@ -46,8 +47,9 @@ function App() {
             <Route path="/about/gia" element={<Gia />} />
             <Route path="/about/business" element={<Business />} />
             <Route path="/Contact" element={<Contact />} />
+            { /*<Route path="/drafts/Zoom/Zoom" element={<Zoom />} />*/}
 
-           {/* <Route path="/drafts/SignInSignUp/Register" element={<Register />} />*/}
+           { /*<Route path="/drafts/SignInSignUp/Register" element={<Register />} />*/}
             {/*<Route path="/drafts/SignInSignUp/LoginSection" element={<LoginSection />} />*/}
             {/*<Route path="/drafts/Design/ShapeDesigner" element={<ShapeDesigner />} />*/}
             {/*<Route path="/drafts/Media/MediaUploader" element={<MediaUploader />} />*/}

@@ -1,38 +1,38 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { jwtDecode } from "jwt-decode";
-
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [authToken, setAuthToken] = useState(localStorage.getItem("token"));
-  const [userRole, setUserRole] = useState("");
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState(null);
 
-  // Decode the token and set the user's role whenever `authToken` changes
   useEffect(() => {
-    if (authToken) {
+    if (token) {
       try {
-        const decoded = jwtDecode(authToken);
-        setUserRole(decoded.role); // Extract role from token
+        const decoded = jwtDecode(token);
+        setUser(decoded); // Store full decoded token (contains role, ID, etc.)
       } catch (err) {
         console.error("Failed to decode token:", err);
-        setUserRole(""); // Reset role if decoding fails
+        setUser(null); // Reset user if decoding fails
       }
     } else {
-      setUserRole(""); // Clear role if no token
+      setUser(null);
     }
-  }, [authToken]);
+  }, [token]);
 
-  // Logout handler: Clear token and role
   const logout = () => {
     localStorage.removeItem("token");
-    setAuthToken(null);
-    setUserRole("");
+    setToken(null);
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ authToken, setAuthToken, userRole, logout }}>
+    <AuthContext.Provider value={{ user, token, setToken, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+// Custom hook for easy access to auth context
+export const useAuth = () => useContext(AuthContext);

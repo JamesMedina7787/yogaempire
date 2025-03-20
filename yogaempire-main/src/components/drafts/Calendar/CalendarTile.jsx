@@ -1,9 +1,9 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
-const CalendarTile = ({ id, title, color }) => {
+const CalendarTile = ({ id, title, color, index }) => {
   return (
-    <Draggable draggableId={id.toString()} index={id}>
+    <Draggable draggableId={id.toString()} index={index}>
       {(provided) => (
         <div
           {...provided.draggableProps}

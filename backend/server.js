@@ -11,6 +11,8 @@ const { v4: uuidv4 } = require('uuid');
 const { authenticate, authorizeAdmin } = require('./middleware/authenticate'); // Middleware for auth
 const jwt = require('jsonwebtoken'); // Add this at the top of your file if not already included
 
+
+
 // Initialize Express app
 const app = express();
 app.use(express.json());
@@ -157,19 +159,41 @@ app.post('/login', async (req, res) => {
 
 // Admin: Create Event
 app.post('/events', authenticate, authorizeAdmin, async (req, res) => {
-  const { title, description, startTime, endTime, createdBy } = req.body;
-  if (!title || !startTime || !endTime || !createdBy) {
-    return res.status(400).json({ error: 'Title, startTime, endTime, and createdBy are required.' });
+  console.log("✅ POST /events hit successfully");
+  console.log("🔹 User Authenticated:", req.user);
+  console.log("Incoming event request:", req.body);
+
+  const { title, description, start, end, color } = req.body;
+
+  if (!title || !start || !end) {
+    return res.status(400).json({ error: 'Title, start, and end times are required' });
   }
 
   try {
-    const event = await Event.create({ title, description, startTime, endTime, createdBy });
+    if (!req.user || !req.user.id) {
+      console.warn("⚠️ User is missing or unauthorized:", req.user);
+      return res.status(401).json({ error: "Unauthorized: User not authenticated" });
+    }
+
+    const event = await Event.create({
+      title,
+      description,
+      startTime: start,  // 🔄 Corrected field names
+      endTime: end,
+      color,
+      createdBy: req.user.id,
+    });
+
     res.status(201).json({ message: 'Event created successfully!', event });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'An error occurred while creating the event.' });
+    console.error("Error creating event:", err);
+    res.status(500).json({ error: 'Failed to create event' });
   }
 });
+
+
+
+
 
 // Admin: Upload Media
 app.post('/media', authenticate, authorizeAdmin, upload.single('media'), async (req, res) => {
@@ -226,20 +250,8 @@ app.get("/test-login", async (req, res) => {
 
 //the admin page 
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
-});
-
-const upload = multer({ storage });
-
-// Route for media uploads
+// Route for media uploads (USE EXISTING UPLOAD CONFIG)
 app.post("/upload", upload.single("media"), (req, res) => {
   try {
     if (!req.file) {
@@ -253,6 +265,140 @@ app.post("/upload", upload.single("media"), (req, res) => {
   }
 });
 
+app.post('/zoom/create-meeting', authenticate, async (req, res) => {
+  const { topic, start_time, duration } = req.body;
+
+  if (!topic || !start_time || !duration) {
+    return res.status(400).json({ error: 'All fields (topic, start_time, duration) are required.' });
+  }
+
+  const generateZoomToken = () => {
+    const payload = {
+      iss: process.env.ZOOM_API_KEY,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60, // 1 hour expiration
+    };
+  
+    return jwt.sign(payload, process.env.ZOOM_API_SECRET);
+  };
+  
+
+  const token = generateZoomToken();
+
+  try {
+    const zoomRequestData = {
+      topic,
+      type: 2, // Scheduled meeting
+      start_time, // Must be in UTC and ISO8601 format (e.g., "2024-02-20T15:00:00Z")
+      duration, // in minutes
+      timezone: 'UTC',
+      settings: {
+        join_before_host: true,
+        approval_type: 0, // Automatically approve
+      },
+    };
+
+    console.log("🔹 Sending Zoom Meeting Request:", zoomRequestData);
+
+    const response = await axios.post(
+      'https://api.zoom.us/v2/users/me/meetings',
+      zoomRequestData,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    console.log("✅ Zoom Meeting Created:", response.data);
+    res.status(201).json({
+      message: 'Meeting created successfully!',
+      join_url: response.data.join_url,
+      meeting_id: response.data.id
+    });
+
+  } catch (error) {
+    console.error("❌ Error Creating Zoom Meeting:", error.response ? error.response.data : error.message);
+    res.status(500).json({ error: 'Failed to create Zoom meeting.' });
+  }
+});
+
+
+// THIS IS THE CALENDAR
+
+
+// Get all events
+app.get('/events', async (req, res) => {
+  try {
+    const events = await Event.findAll();
+    res.json(events);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch events' });
+  }
+});
+
+// Create a new event (Admin Only)
+app.post('/events', authenticate, authorizeAdmin, async (req, res) => {
+  console.log("🔹 Received request to add event:", req.body); 
+
+  const { title, description, startTime, endTime, color } = req.body;
+
+  if (!title || !startTime || !endTime) {
+    console.warn("⚠️ Missing required fields:", { title, startTime, endTime });
+    return res.status(400).json({ error: 'Title, startTime, and endTime are required' });
+  }
+
+  try {
+    const event = await Event.create({
+      title,
+      description,
+      startTime, // ✅ Match frontend field names
+      endTime,
+      color: color || 'gray',
+      createdBy: req.user.id,
+    });
+
+    console.log("✅ Event successfully created:", event);
+    res.status(201).json(event);
+  } catch (err) {
+    console.error("❌ Error creating event:", err);
+    res.status(500).json({ error: 'Failed to create event' });
+  }
+});
+
+
+// Update an event (Admin Only)
+app.put('/events/:id', authenticate, authorizeAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { title, description, start, end, color } = req.body;
+
+  try {
+    const event = await Event.findByPk(id);
+    if (!event) return res.status(404).json({ error: 'Event not found' });
+
+    await event.update({ title, description, start, end, color });
+    res.json(event);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to update event' });
+  }
+});
+
+// Delete an event (Admin Only)
+app.delete('/events/:id', authenticate, authorizeAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const event = await Event.findByPk(id);
+    if (!event) return res.status(404).json({ error: 'Event not found' });
+
+    await event.destroy();
+    res.json({ message: 'Event deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to delete event' });
+  }
+});
 
 // Start the Server
 app.listen(PORT, () => {

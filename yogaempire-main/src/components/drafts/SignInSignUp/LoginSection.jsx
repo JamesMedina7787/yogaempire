@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "./AuthContext";
+import React, { useState } from "react";
+import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
+import "../../../assets/Register.css"; // Import CSS for styling
 
 const LoginSection = () => {
-  const { setAuthToken } = useContext(AuthContext); // Update token in context
+  const { setToken } = useAuth(); // Use Auth Context
   const [formData, setFormData] = useState({ name: "", password: "" });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const LoginSection = () => {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("token", data.token); // Save token
-        setAuthToken(data.token); // Update AuthContext
+        setToken(data.token); // Update AuthContext
         navigate("/"); // Redirect after login
       } else {
         setMessage(`Error: ${data.error || "Login failed."}`);
@@ -39,25 +40,50 @@ const LoginSection = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="name"
-        placeholder="Username"
-        value={formData.name}
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        value={formData.password}
-        onChange={handleChange}
-      />
-      <button type="submit">Login</button>
-      {message && <p>{message}</p>}
-    </form>
+    <div className="form-container">
+      <h2 className="form-title">Login</h2>
+
+      {message && (
+        <div className={`message-box ${message.startsWith("Error") ? "error" : "success"}`}>
+          {message}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <label htmlFor="name">Username</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your username"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+        </div>
+
+        <button type="submit" className="form-button">
+          Login
+        </button>
+      </form>
+    </div>
   );
 };
 
-export default LoginSection
+export default LoginSection;
