@@ -47,14 +47,14 @@ function App() {
             <Route path="/about/gia" element={<Gia />} />
             <Route path="/about/business" element={<Business />} />
             <Route path="/Contact" element={<Contact />} />
-            { /*<Route path="/drafts/Zoom/Zoom" element={<Zoom />} />*/}
-
-           { /*<Route path="/drafts/SignInSignUp/Register" element={<Register />} />*/}
-            {/*<Route path="/drafts/SignInSignUp/LoginSection" element={<LoginSection />} />*/}
-            {/*<Route path="/drafts/Design/ShapeDesigner" element={<ShapeDesigner />} />*/}
-            {/*<Route path="/drafts/Media/MediaUploader" element={<MediaUploader />} />*/}
-            {/*<Route path="/drafts/Calendar/CalendarGrid" element={<CalendarGrid />} />*/}
-            {/*<Route path="/drafts/AdminPanel" element={<AdminPanel />} />*/}
+            {/* <Route path="/drafts/Zoom/Zoom" element={<Zoom />} /> */}
+{/* 
+           <Route path="/drafts/SignInSignUp/Register" element={<Register />} />
+            <Route path="/drafts/SignInSignUp/LoginSection" element={<LoginSection />} />
+            <Route path="/drafts/Design/ShapeDesigner" element={<ShapeDesigner />} />
+            <Route path="/drafts/Media/MediaUploader" element={<MediaUploader />} />
+            <Route path="/drafts/Calendar/CalendarGrid" element={<CalendarGrid />} />
+            <Route path="/drafts/AdminPanel" element={<AdminPanel />} /> */}
             <Route
               path="*"
               element={
@@ -64,10 +64,11 @@ function App() {
               }
             />
           </Routes>
+          <Card cards={cards} />
 
         </main>
         <footer className="footer">
-          <p>© 2024 Yoga Empire. All rights reserved.</p>
+          <strong>© 2024 Yoga Empire. All rights reserved.</strong>
         </footer>
       </Router>
     </AuthProvider>

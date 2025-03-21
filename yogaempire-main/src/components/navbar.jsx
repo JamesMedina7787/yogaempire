@@ -35,9 +35,9 @@ const Navbar = () => {
         </li>
 
         <li><Link to="/Contact">Contact</Link></li>
-        {/* <li><Link to="/drafts/Zoom/Zoom">Zoom</Link></li>*/}
+       {/*  <li><Link to="/drafts/Zoom/Zoom">Zoom</Link></li>*/}
 
-        {/* Admin Dropdown (Restricted to Admins Only) */}
+        
         {userRole === "admin" && (
           <li
             className="dropdown"

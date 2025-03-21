@@ -21,20 +21,20 @@
 /* Universal Text and Heading Styles */
 h1, h2, h3 {
   font-family: inherit;
-  color: #f03939; /* Accent color */
+  color: v#f03939; /* Accent color */
 }
 
 p {
   font-size: 1.2rem;
   line-height: 1.8;
   margin: 1.5rem 0;
-  color: #333;
+  color: #000000d0;
 }
 .digital-class-section {
   text-align: center;
   padding: 2rem;
   background-color: #f9f9f9;
-  color: #333;
+  color: #000000d0;
 }
 
 .digital-class-section label {
@@ -53,7 +53,7 @@ p {
 
 .digital-class-section button {
   padding: 0.75rem 1.5rem;
-  background-color: #FF7E79;
+  background-color: #e01515d0;
   color: white;
   border: none;
   border-radius: 5px;
@@ -94,7 +94,7 @@ p {
   text-align: center;
   padding: 4rem 2rem;
   background-color: #f9f9f9; /* Light background */
-  color: #333;
+  color: #000000d0;
 }
 
 .welcome-section h1 {
@@ -108,12 +108,12 @@ p {
   display: inline-block;
   animation: fadeIn 2s ease-in forwards;
   font-size: 2.5rem;
-  color: #333;
+  color: #000000d0;
 }
 
 .welcome-section .grow-from-earth {
   display: inline-block;
-  color: #f03939; /* Accent color */
+  color: #e01515d0; /* Accent color */
   animation: growFromEarth 3s ease-in forwards;
   font-size: 3.5rem;
   font-weight: bold;
@@ -141,7 +141,7 @@ p {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: #f03939;
+  color: #ffd700;
 }
 
 .booking-section p {
@@ -176,7 +176,7 @@ p {
 #booking-form button {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background-color: #f03939;
+  background-color: #e01515d0;
   color: white;
   border: none;
   border-radius: 5px;
@@ -186,7 +186,7 @@ p {
 }
 
 #booking-form button:hover {
-  background-color: #f03939;
+  background-color: #e01515d0;
 }
 
 
@@ -207,7 +207,7 @@ p {
 .about-hero h2 {
   font-size: 2rem;
   font-weight: bold;
-  color: #FF7E79;
+  color: #e01515d0;
   margin-bottom: 1rem;
 }
 
@@ -244,7 +244,7 @@ p {
 }
 
 .about-values strong {
-  color: #FF7E79;
+  color: #e01515d0;
 }
 
 
@@ -395,7 +395,7 @@ p {
 }
 
 svg {
-  stroke: #ff7e79; /* Beautiful pink for the lotus */
+  stroke: #e01515d0; /* Beautiful pink for the lotus */
   transition: transform 0.3s ease-in-out;
 }
 
@@ -439,7 +439,7 @@ svg:hover {
 
 .welcome-section .grow-from-earth {
   display: inline-block;
-  color: #FF7E79; /* Accent color */
+  color: #e7bd03f8; /* Accent color */
   animation: growFromEarth 3s ease-in forwards;
   font-size: 3.5rem;
   font-weight: bold;
@@ -563,7 +563,7 @@ svg:hover {
     background-color: #f9f9f9;
   }
   .banner {
-    background-image: url('./assets/banner.jpg');
+    background-image: url('./assets/empire.png');
     background-size: cover;
     background-position: center;
     height: 250px; /* Match your design height */

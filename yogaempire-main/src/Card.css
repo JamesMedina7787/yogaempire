@@ -1,100 +1,116 @@
-.card {
+/* src/components/Card.css */
+
+.card-container {
   display: flex;
   flex-direction: column;
-  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: #000000;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card-wrapper {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 1.5rem;
   overflow: hidden;
-  background: linear-gradient(135deg, #ffcccc, #ffe6e6); /* Light gradient background */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  box-shadow: 0 10px 20px rgba(255, 215, 0, 0.5); /* More intense gold glow */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 100%; /* Cards stretch across the screen */
-  margin: 1rem 0; /* Adds spacing between cards */
-  padding: 5.5rem;
+  cursor: pointer;
+  background: linear-gradient(to bottom, #fcdb7e, #111111); /* Fade to deep black */
+  margin: 0 auto;
 }
 
-.card:hover {
-  transform: translateY(-8px); /* Hover effect to lift the card slightly */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
-}
-
-.card:hover .card-description {
-  color: #ff69b4; /* Hot pink text for contrast */
-  transition: color 0.3s ease; /* Smooth transition */
+.card-wrapper:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(255, 215, 0, 0.8); /* Stronger gold glow */
 }
 
 .card-image-container {
-  position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9; /* Maintains consistent proportions */
+  height: 350px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0d0d0d; /* Even darker background for contrast */
 }
 
 .card-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures the image fills the container */
-  transition: transform 0.3s ease;
-}
-
-.card:hover .card-image {
-  transform: scale(1.08); /* Slight zoom effect on hover */
+  object-fit: contain;
+  padding: 10px;
 }
 
 .card-content {
-  
-  font-weight: 50;
-  padding: 1rem;
+  padding: 2rem;
   text-align: center;
-  background: #fff; /* Neutral background for content */
-  border-radius: 0 0 12px 12px; /* Matches rounded card corners */
+  background: rgba(0, 0, 0, 0.95); /* Darker black for stronger contrast */
+  color: #fcdb7e; /* Gold text */
 }
 
 .card-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #bf2004; /* Red for title */
-  margin-bottom: 0.75rem;
-  transition: color 0.3s ease;
-}
-
-.card-title:hover {
-  color: #ff8080; /* Light red on hover */
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fcdb7e; /* Gold title */
+  margin-bottom: 1rem;
 }
 
 .card-description {
-  font-size:75px;
-  color: #555; /* Default text color */
-  margin-bottom: 1.25em;
+  font-size: 1.2rem;
+  color: #d4af37; /* Softer gold */
+  margin-bottom: 1rem;
   line-height: 1.6;
-  transition: color 0.3s ease; /* Smooth color transition */
 }
 
-.card-button {
-  display: inline-block;
-  padding: 0.5em 1.5em;
-  font-size: 1rem;
-  background-color: #bf2004; /* Button background */
-  color: #fff;
+.card-link {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #fcdb7e; /* Gold link */
+  text-transform: uppercase;
+  letter-spacing: 1px;
   text-decoration: none;
-  border-radius: 8px; /* Rounded button edges */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: color 0.3s ease;
 }
 
-.card-button:hover {
-  background-color: #ff8080; /* Light red on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Elevated shadow on hover */
-  color: #333;
+.card-wrapper:hover .card-link {
+  color: #ffd700; /* Brighter gold on hover */
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .card {
-    width: 95%; /* Slight padding for smaller screens */
+  .card-wrapper {
+    width: 90%;
+  }
+  .card-image-container {
+    height: 280px;
+  }
+  .card-title {
+    font-size: 1.8rem;
+  }
+  .card-description {
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .card {
-    width: 100%; /* Full-width cards for mobile */
+  .card-wrapper {
+    width: 95%;
+  }
+  .card-image-container {
+    height: 250px;
+  }
+  .card-title {
+    font-size: 1.5rem;
+  }
+  .card-description {
+    font-size: 0.9rem;
+  }
+  .card-content {
+    padding: 1.5rem;
   }
 }
