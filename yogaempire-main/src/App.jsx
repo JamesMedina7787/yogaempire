@@ -9,13 +9,13 @@ import Contact from "./components/Contact";
 import James from "./components/James";
 import Gia from "./components/Gia";
 import Business from "./components/Business";
-//import CalendarGrid from "./components/drafts/Calendar/CalendarGrid.jsx";
-//import MediaUploader from "./components/drafts/Media/MediaUploader.jsx";
-//import ShapeDesigner from "./components/drafts/Design/ShapeDesigner.jsx";
-//import Register from "./components/drafts/SignInSignUp/Register.jsx";
-//import LoginSection from "./components/drafts/SignInSignUp/LoginSection.jsx";
-//import AdminPanel from "./components/drafts/AdminPanel.jsx";
-//import Zoom from "./components/drafts/Zoom/Zoom.jsx";
+// import CalendarGrid from "./components/drafts/Calendar/CalendarGrid.jsx";
+// import MediaUploader from "./components/drafts/Media/MediaUploader.jsx";
+// import ShapeDesigner from "./components/drafts/Design/ShapeDesigner.jsx";
+import Register from "./components/drafts/SignInSignUp/Register.jsx";
+import LoginSection from "./components/drafts/SignInSignUp/LoginSection.jsx";
+// import AdminPanel from "./components/drafts/AdminPanel.jsx";
+import Zoom from "./components/drafts/Zoom/Zoom.jsx";
 import HomePic from "./assets/x2cr0w.png";
 import LoginPic from "./assets/x2plank.png";
 import Bac2 from "./assets/x3crow.png";
@@ -47,11 +47,11 @@ function App() {
             <Route path="/about/gia" element={<Gia />} />
             <Route path="/about/business" element={<Business />} />
             <Route path="/Contact" element={<Contact />} />
-            {/* <Route path="/drafts/Zoom/Zoom" element={<Zoom />} /> */}
-{/* 
+            <Route path="/drafts/Zoom/Zoom" element={<Zoom />} />
+
            <Route path="/drafts/SignInSignUp/Register" element={<Register />} />
             <Route path="/drafts/SignInSignUp/LoginSection" element={<LoginSection />} />
-            <Route path="/drafts/Design/ShapeDesigner" element={<ShapeDesigner />} />
+            {/* <Route path="/drafts/Design/ShapeDesigner" element={<ShapeDesigner />} />
             <Route path="/drafts/Media/MediaUploader" element={<MediaUploader />} />
             <Route path="/drafts/Calendar/CalendarGrid" element={<CalendarGrid />} />
             <Route path="/drafts/AdminPanel" element={<AdminPanel />} /> */}

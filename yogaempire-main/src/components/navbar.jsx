@@ -35,7 +35,7 @@ const Navbar = () => {
         </li>
 
         <li><Link to="/Contact">Contact</Link></li>
-       {/*  <li><Link to="/drafts/Zoom/Zoom">Zoom</Link></li>*/}
+        <li><Link to="/drafts/Zoom/Zoom">Zoom</Link></li>
 
         
         {userRole === "admin" && (
